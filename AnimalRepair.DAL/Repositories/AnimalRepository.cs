@@ -11,6 +11,7 @@ namespace AnimalRepair.DAL.Repositories
 {
     internal class AnimalRepository : IRepository<Animal>
     {
+        private DbA9ae8dDbanimalreContext db;
         public void Create(Animal item)
         {
             throw new NotImplementedException();
