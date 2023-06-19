@@ -41,7 +41,14 @@ namespace AnimalRepair.DAL.Repositories
 
         public Animal Get(int id)
         {
-            return _dbContext.Animals.Find(id);
+            var animal = _dbContext.Animals.Find(id);
+
+            if (animal == null)
+            {
+                
+            }
+
+            return animal;
         }
 
         public IEnumerable<Animal> GetAll()
