@@ -11,35 +11,48 @@ namespace AnimalRepair.DAL.Repositories
 {
     internal class AnimalRepository : IRepository<Animal>
     {
-        private DbA9ae8dDbanimalreContext db;
+        private readonly DbA9ae8dDbanimalreContext _dbContext;
+
+        public AnimalRepository(DbA9ae8dDbanimalreContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public void Create(Animal item)
         {
-            throw new NotImplementedException();
+            _dbContext.Animals.Add(item);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var item = _dbContext.Animals.Find(id);
+            if (item != null)
+            {
+                _dbContext.Animals.Remove(item);
+                _dbContext.SaveChanges();
+            }
         }
 
         public IEnumerable<Animal> Find(Func<Animal, bool> predicate)
         {
-            throw new NotImplementedException();
+            return _dbContext.Animals.Where(predicate).ToList();
         }
 
         public Animal Get(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Animals.Find(id);
         }
 
         public IEnumerable<Animal> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Animals.ToList();
         }
 
         public void Update(Animal item)
         {
-            throw new NotImplementedException();
+            _dbContext.Animals.Update(item);
+            _dbContext.SaveChanges();
         }
     }
 }
