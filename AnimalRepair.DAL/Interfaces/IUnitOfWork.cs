@@ -13,6 +13,9 @@ namespace AnimalRepair.DAL.Interfaces
         IRepository<Customer> Customers { get; }
         IRepository<Order> Orders { get; }
         IRepository<OrderProduct> OrderProducts { get; }
+        IRepository<Admin> Admins { get; }
+        IRepository<Login> Logins { get; }
+        IRepository<UserRole> UserRoles { get; }
         void Save();
     }
 }
