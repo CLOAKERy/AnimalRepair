@@ -13,6 +13,10 @@ namespace AnimalRepair.DAL.Interfaces
         IRepository<Customer> Customers { get; }
         IRepository<Order> Orders { get; }
         IRepository<OrderProduct> OrderProducts { get; }
+        IRepository<KindOfAnimal> KindOfAnimals { get; }
+        IRepository<KindOfGender> KindOfGenders { get; }
+        IRepository<KindOfProduct> KindOfProducts { get; }
+        IRepository<Product> Products { get; }
         void Save();
     }
 }
