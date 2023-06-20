@@ -1,0 +1,18 @@
+﻿using Animal_Repair;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AnimalRepair.DAL.Interfaces
+{
+    internal interface IUnitOfWork : IDisposable
+    {
+        IRepository<Animal> Animals { get; }
+        IRepository<Customer> Customers { get; }
+        IRepository<Order> Orders { get; }
+        IRepository<OrderProduct> OrderProducts { get; }
+        void Save();
+    }
+}
