@@ -41,14 +41,14 @@ namespace OrderRepair.DAL.Repositories
 
         public Order Get(int id)
         {
-            var Order = _dbContext.Orders.Find(id);
+            var order = _dbContext.Orders.Find(id);
 
-            if (Order == null)
+            if (order == null)
             {
 
             }
 
-            return Order;
+            return order;
         }
 
         public IEnumerable<Order> GetAll()
