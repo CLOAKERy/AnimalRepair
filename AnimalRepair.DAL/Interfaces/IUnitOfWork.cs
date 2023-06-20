@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.DAL.Interfaces
 {
-    internal interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IRepository<Animal> Animals { get; }
         IRepository<Customer> Customers { get; }
