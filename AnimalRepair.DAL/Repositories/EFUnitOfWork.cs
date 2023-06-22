@@ -24,9 +24,9 @@ namespace AnimalRepair.DAL.Repositories
         private OrderRepository orderRepository;
         private ProductRepository productRepository;
         private UserRoleRepository userRoleRepository;
-        public EFUnitOfWork(AnimalRepairContext dbContext)
+        public EFUnitOfWork()
         {
-            db = dbContext;
+            db = new AnimalRepairContext();
         }
         public IRepository<Animal> Animals
         {
