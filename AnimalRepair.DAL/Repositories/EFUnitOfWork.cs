@@ -1,5 +1,7 @@
 ﻿using Animal_Repair;
 using AnimalRepair.DAL.Interfaces;
+using OrderProductRepair.DAL.Repositories;
+using OrderRepair.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace AnimalRepair.DAL.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        private DbA9ae8dDbanimalreContext db;
+        private AnimalRepairContext db;
         private AdminRepository adminRepository;
         private AnimalRepository animalRepository;
         private CustomerRepository customerRepository;
@@ -22,7 +24,7 @@ namespace AnimalRepair.DAL.Repositories
         private OrderRepository orderRepository;
         private ProductRepository productRepository;
         private UserRoleRepository userRoleRepository;
-        public EFUnitOfWork(DbA9ae8dDbanimalreContext dbContext)
+        public EFUnitOfWork(AnimalRepairContext dbContext)
         {
             db = dbContext;
         }

@@ -17,30 +17,30 @@ namespace AnimalRepair.DAL.Repositories
             _dbContext = dbContext;
         }
 
-        public void Create(T item)
+        public async Task CreateAsync(T item)
         {
-            _dbContext.Set<T>().Add(item);
-            _dbContext.SaveChanges();
+            await _dbContext.Set<T>().AddAsync(item);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var item = _dbContext.Set<T>().Find(id);
+            var item = await _dbContext.Set<T>().FindAsync(id);
             if (item != null)
             {
                 _dbContext.Set<T>().Remove(item);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<T> Find(Func<T, bool> predicate)
+        public async Task<IEnumerable<T>> FindAsync(Func<T, bool> predicate)
         {
-            return _dbContext.Set<T>().Where(predicate).ToList();
+            return await Task.FromResult(_dbContext.Set<T>().Where(predicate).ToList());
         }
 
-        public T Get(int id)
+        public async Task<T> GetAsync(int id)
         {
-            var entity = _dbContext.Set<T>().Find(id);
+            var entity = await _dbContext.Set<T>().FindAsync(id);
             if (entity == null)
             {
                 // Обработка случая, когда сущность не найдена
@@ -49,15 +49,15 @@ namespace AnimalRepair.DAL.Repositories
             return entity;
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _dbContext.Set<T>().ToList();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public void Update(T item)
+        public async Task UpdateAsync(T item)
         {
             _dbContext.Set<T>().Update(item);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

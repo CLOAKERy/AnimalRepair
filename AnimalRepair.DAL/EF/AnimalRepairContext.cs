@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Animal_Repair;
 
-public partial class DbA9ae8dDbanimalreContext : DbContext
+public partial class AnimalRepairContext : DbContext
 {
-    public DbA9ae8dDbanimalreContext()
+    public AnimalRepairContext()
     {
     }
 
-    public DbA9ae8dDbanimalreContext(DbContextOptions<DbA9ae8dDbanimalreContext> options)
+    public AnimalRepairContext(DbContextOptions<AnimalRepairContext> options)
         : base(options)
     {
     }
