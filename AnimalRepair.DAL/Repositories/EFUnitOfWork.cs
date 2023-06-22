@@ -1,7 +1,5 @@
 ﻿using Animal_Repair;
 using AnimalRepair.DAL.Interfaces;
-using OrderProductRepair.DAL.Repositories;
-using OrderRepair.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
