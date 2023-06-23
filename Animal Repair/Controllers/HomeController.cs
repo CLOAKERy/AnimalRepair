@@ -1,4 +1,7 @@
 ﻿using Animal_Repair.Models;
+using AnimalRepair.BLL.DTO;
+using AnimalRepair.BLL.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,25 +11,22 @@ namespace Animal_Repair.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        IAnimalService animalService;
+        public HomeController(IAnimalService serv)
+        {
+            animalService = serv;
+        }
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            IEnumerable<AnimalDTO> AnimalDtos = animalService.GetAllAnimals();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AnimalDTO, AnimalViewModel>()).CreateMapper();
+            var animals = mapper.Map<IEnumerable<AnimalDTO>, List<AnimalViewModel>>(AnimalDtos);
+            return View(animals);
         }
     }
 }
