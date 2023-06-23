@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="BusinessModel\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
