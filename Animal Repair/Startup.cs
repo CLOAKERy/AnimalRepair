@@ -11,6 +11,8 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Animal_Repair;
+using AnimalRepair.DAL.Interfaces;
+using AnimalRepair.DAL.Repositories;
 
 public class Startup
 {
@@ -35,6 +37,7 @@ public class Startup
         var animalModule = new AnimalModule();
         animalModule.ConfigureServices(services);
 
+        services.AddScoped<IUnitOfWork, EFUnitOfWork>();
         services.AddAutoMapper(typeof(MappingProfile));
 
         // Другие сервисы и настройки...
