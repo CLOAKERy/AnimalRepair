@@ -13,6 +13,16 @@ namespace AnimalRepair.DAL.Repositories
     {
         public AnimalRepository(DbContext dbContext) : base(dbContext)
         {
+
+        }
+        public async Task GetByCategoryAsync(int idkindOfAnimal)
+        {
+            var item = await _dbContext.Set<Animal>().FindAsync(idkindOfAnimal);
+            if (item != null)
+            {
+                _dbContext.Set<Animal>().Remove(item);
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }
