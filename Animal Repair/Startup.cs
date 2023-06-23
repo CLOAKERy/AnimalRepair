@@ -25,6 +25,9 @@ public class Startup
         var customerModule = new CustomerModule();
         customerModule.ConfigureServices(services);
 
+        var animalModule = new AnimalModule();
+        animalModule.ConfigureServices(services);
+
         services.AddAutoMapper(typeof(MappingProfile));
 
         // Другие сервисы и настройки...

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Services
 {
-    internal class AnimalService : IAnimalService
+    public class AnimalService : IAnimalService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
