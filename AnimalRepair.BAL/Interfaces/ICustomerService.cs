@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Interfaces
 {
-    internal interface ICustomerService
+    public interface ICustomerService
     {
         void RegisterUser(CustomerDTO userDto);
         bool IsUsernameUnique(string username);
