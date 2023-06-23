@@ -38,7 +38,12 @@ public class Startup
         animalModule.ConfigureServices(services);
 
         services.AddScoped<IUnitOfWork, EFUnitOfWork>();
-        services.AddAutoMapper(typeof(MappingProfile));
+
+        services.AddAutoMapper(typeof(AnimalMapper));
+        services.AddAutoMapper(typeof(AdminMapper));
+        services.AddAutoMapper(typeof(CustomerMapper));
+        services.AddAutoMapper(typeof(LoginMapper));
+        services.AddAutoMapper(typeof(UserRoleMapper));
 
         // Другие сервисы и настройки...
     }
