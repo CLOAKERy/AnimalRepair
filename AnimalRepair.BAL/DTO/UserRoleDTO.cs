@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.DTO
 {
-    internal class UserRoleDTO
+    public class UserRoleDTO
     {
         public int Id { get; set; }
 

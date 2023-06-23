@@ -8,6 +8,7 @@ public partial class AnimalRepairContext : DbContext
 {
     public AnimalRepairContext()
     {
+
     }
 
     public AnimalRepairContext(DbContextOptions<AnimalRepairContext> options)

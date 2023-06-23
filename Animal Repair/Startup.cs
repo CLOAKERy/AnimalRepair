@@ -8,6 +8,11 @@ using AnimalRepair.BLL.Services;
 using Animal_Repair.Util;
 using AnimalRepair.BLL.Mapping;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using System;
+using Animal_Repair;
+using AnimalRepair.DAL.Interfaces;
+using AnimalRepair.DAL.Repositories;
 
 public class Startup
 {
@@ -20,6 +25,10 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        // получаем строку подключения из файла конфигурации
+        string connection = Configuration.GetConnectionString("DefaultConnection");
+        // добавляем контекст AppDBContext в качестве сервиса в приложение
+        services.AddDbContext<AnimalRepairContext>(options => options.UseSqlServer("Data Source=sql5106.site4now.net;User ID=db_a9ae8d_dbanimalre_admin;Password=a12345678;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;"));
         services.AddControllersWithViews();
 
         var customerModule = new CustomerModule();
@@ -28,7 +37,13 @@ public class Startup
         var animalModule = new AnimalModule();
         animalModule.ConfigureServices(services);
 
-        services.AddAutoMapper(typeof(MappingProfile));
+        services.AddScoped<IUnitOfWork, EFUnitOfWork>();
+
+        services.AddAutoMapper(typeof(AnimalMapper));
+        services.AddAutoMapper(typeof(AdminMapper));
+        services.AddAutoMapper(typeof(CustomerMapper));
+        services.AddAutoMapper(typeof(LoginMapper));
+        services.AddAutoMapper(typeof(UserRoleMapper));
 
         // Другие сервисы и настройки...
     }
@@ -39,6 +54,7 @@ public class Startup
 
         app.UseRouting();
         app.UseStaticFiles();
+        app.UseDeveloperExceptionPage();    
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(
