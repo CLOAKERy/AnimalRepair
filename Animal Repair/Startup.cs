@@ -49,6 +49,7 @@ public class Startup
 
         app.UseRouting();
         app.UseStaticFiles();
+        app.UseDeveloperExceptionPage();    
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(

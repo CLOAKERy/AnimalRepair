@@ -14,7 +14,7 @@ namespace AnimalRepair.BLL.Interfaces
         Task RemoveAnimal(int animalId);
         Task<AnimalDTO> GetAnimalById(int animalId);
         IEnumerable<AnimalDTO> GetAnimalsByCategory(string category);
-        IEnumerable<AnimalDTO> GetAllAnimals();
+        Task<IEnumerable<AnimalDTO>> GetAllAnimalsAsync();
     }
 
 }

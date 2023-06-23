@@ -97,10 +97,10 @@ namespace AnimalRepair.BLL.Services
             return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
         }
 
-        public IEnumerable<AnimalDTO> GetAllAnimals()
+        public async Task<IEnumerable<AnimalDTO>> GetAllAnimalsAsync()
         {
             // Получение списка всех животных
-            IEnumerable<Animal> animals = (IEnumerable<Animal>)_unitOfWork.Animals.GetAllAsync();
+            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAllAsync();
             return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
         }
 
