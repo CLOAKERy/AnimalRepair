@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AnimalRepair.DAL.Entities
+namespace AnimalRepair.BLL.DTO
 {
     public class KindOfGenderDTO
     {
