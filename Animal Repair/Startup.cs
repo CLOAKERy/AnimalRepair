@@ -13,6 +13,7 @@ using System;
 using Animal_Repair;
 using AnimalRepair.DAL.Interfaces;
 using AnimalRepair.DAL.Repositories;
+using AnimalRepair.BLL.DTO;
 
 public class Startup
 {
@@ -42,7 +43,13 @@ public class Startup
         services.AddAutoMapper(typeof(AnimalMapper));
         services.AddAutoMapper(typeof(AdminMapper));
         services.AddAutoMapper(typeof(CustomerMapper));
+        services.AddAutoMapper(typeof(KindOfAnimalMapper));
+        services.AddAutoMapper(typeof(KindOfGenderMapper));
+        services.AddAutoMapper(typeof(KindOfProductMapper));
+        services.AddAutoMapper(typeof(OrderMapper));
         services.AddAutoMapper(typeof(LoginMapper));
+        services.AddAutoMapper(typeof(OrderProductMapper));
+        services.AddAutoMapper(typeof(ProductMapper));
         services.AddAutoMapper(typeof(UserRoleMapper));
 
         // Другие сервисы и настройки...
