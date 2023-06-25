@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Interfaces
 {
-    public interface ICustomerService
+    public interface ICustomerService : IDisposable
     {
             Task RegisterCustomer(CustomerDTO customerDto);
             Task<CustomerDTO> Authenticate(string username, string password);

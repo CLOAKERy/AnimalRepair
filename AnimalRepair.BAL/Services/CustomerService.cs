@@ -1,5 +1,9 @@
-﻿using AnimalRepair.BLL.DTO;
+﻿using Animal_Repair;
+using AnimalRepair.BLL.DTO;
+using AnimalRepair.BLL.Infrastructure;
 using AnimalRepair.BLL.Interfaces;
+using AnimalRepair.DAL.Interfaces;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +14,94 @@ namespace AnimalRepair.BLL.Services
 {
     public class CustomerService : ICustomerService
     {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
         public Task<CustomerDTO> Authenticate(string username, string password)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteUser(int userId)
+        public async Task DeleteUser(int userId)
         {
-            throw new NotImplementedException();
+            Customer customer = await _unitOfWork.Customers.GetAsync(userId);
+            if (customer == null)
+                throw new ValidationException("Пользователь не найден", "");
+
+            await _unitOfWork.Customers.DeleteAsync(userId);
+            _unitOfWork.Save();
         }
 
-        public Task<CustomerDTO> GetUserProfile(int userId)
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Dispose();
         }
 
-        public Task<IEnumerable<CustomerDTO>> GetUsers()
+        public async Task<CustomerDTO> GetUserProfile(int userId)
         {
-            throw new NotImplementedException();
+            // Поиск логина и пароля по идентификатору
+            Customer customer = await _unitOfWork.Customers.GetAsync(userId);
+            if (customer == null)
+                throw new ValidationException("Пользователь не найден", "");
+
+            CustomerDTO customerDTO = _mapper.Map<Customer, CustomerDTO>(customer);
+
+            return customerDTO;
         }
 
-        public Task RegisterCustomer(CustomerDTO customerDto)
+        public async Task<IEnumerable<CustomerDTO>> GetUsers()
         {
-            throw new NotImplementedException();
+            // Получение списка пользователей
+            IEnumerable<Customer> customer = await _unitOfWork.Customers.GetAllAsync();
+            return _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDTO>>(customer);
         }
 
-        public Task UpdateUserProfile(CustomerDTO customerDto)
+        public async Task RegisterCustomer(CustomerDTO customerDto)
         {
-            throw new NotImplementedException();
+            // Валидация данных 
+            if (string.IsNullOrEmpty(customerDto.IdLogin.ToString()))
+                throw new ValidationException("Логин не может быть пустым", "");
+            if (string.IsNullOrEmpty(customerDto.IdRole.ToString()))
+                throw new ValidationException("Роль не может быть пустым", "");
+            if (string.IsNullOrEmpty(customerDto.Name.ToString()))
+                throw new ValidationException("Имя не может быть пустым", "");
+            if (string.IsNullOrEmpty(customerDto.PhoneNumber.ToString()))
+                throw new ValidationException("Телефон не может быть пустым", "");
+            if (string.IsNullOrEmpty(customerDto.Address.ToString()))
+                throw new ValidationException("Адрес не может быть пустым", "");
+
+            // Маппинг 
+            var customer = _mapper.Map<CustomerDTO, Customer>(customerDto);
+
+            // Пример сохранения в базу данных с использованием UnitOfWork
+            await _unitOfWork.Customers.CreateAsync(customer);
+            _unitOfWork.Save();
+        }
+
+        public async Task UpdateUserProfile(CustomerDTO customerDto)
+        {
+            // Поиск логина и пароля по идентификатору
+            Customer customer = await _unitOfWork.Customers.GetAsync(customerDto.Id);
+            if (customer == null)
+                throw new ValidationException("Пользователь не найден", "");
+
+            // Обновление данных логина и пароля
+            customer.Adress = customerDto.Address;
+            customer.IdLogin = customerDto.IdLogin;
+            customer.PhoneNumber = customerDto.PhoneNumber;
+            customer.Name = customerDto.Name;
+            customer.IdRole = customerDto.IdRole;
+
+            // Маппинг 
+            Customer updatedCustomer = _mapper.Map<CustomerDTO, Customer>(customerDto);
+
+            // Обновление пользователя в базе данных
+            await _unitOfWork.Customers.UpdateAsync(updatedCustomer);
+            _unitOfWork.Save();
         }
     }
 }
