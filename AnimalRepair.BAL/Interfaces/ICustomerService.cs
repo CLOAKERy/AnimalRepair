@@ -9,9 +9,11 @@ namespace AnimalRepair.BLL.Interfaces
 {
     public interface ICustomerService
     {
-        void RegisterUser(CustomerDTO userDto);
-        bool IsUsernameUnique(string username);
-        CustomerDTO GetUserByUsername(string username);
-        void Dispose();
+            Task RegisterCustomer(CustomerDTO customerDto);
+            Task<CustomerDTO> Authenticate(string username, string password);
+            Task<CustomerDTO> GetUserProfile(int userId);
+            Task<IEnumerable<CustomerDTO>> GetUsers();
+            Task UpdateUserProfile(CustomerDTO customerDto);
+            Task DeleteUser(int userId);
     }
 }
