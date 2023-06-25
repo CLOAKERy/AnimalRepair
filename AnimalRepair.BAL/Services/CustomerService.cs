@@ -10,22 +10,32 @@ namespace AnimalRepair.BLL.Services
 {
     public class CustomerService : ICustomerService
     {
-        public void Dispose()
+        public Task<CustomerDTO> Authenticate(string username, string password)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsUsernameUnique(string username)
+        public Task DeleteUser(int userId)
         {
             throw new NotImplementedException();
         }
 
-        CustomerDTO ICustomerService.GetUserByUsername(string username)
+        public Task<CustomerDTO> GetUserProfile(int userId)
         {
             throw new NotImplementedException();
         }
 
-        void ICustomerService.RegisterUser(CustomerDTO userDto)
+        public Task<IEnumerable<CustomerDTO>> GetUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RegisterCustomer(CustomerDTO customerDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateUserProfile(CustomerDTO customerDto)
         {
             throw new NotImplementedException();
         }
