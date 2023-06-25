@@ -24,7 +24,7 @@ namespace AnimalRepair.BLL.Services
             _mapper = mapper;
         }
 
-        public void AddAnimal(AnimalDTO animalDto)
+        public async Task AddAnimal(AnimalDTO animalDto)
         {
             // Валидация данных животного
             if (string.IsNullOrEmpty(animalDto.IdKindOfAnimal.ToString()))
@@ -39,10 +39,8 @@ namespace AnimalRepair.BLL.Services
             // Маппинг AnimalDTO в Animal
             var animal = _mapper.Map<AnimalDTO, Animal>(animalDto);
 
-            // Добавление животного в базу данных или выполнение другой логики
-
             // Пример сохранения в базу данных с использованием UnitOfWork
-            _unitOfWork.Animals.CreateAsync(animal);
+            await _unitOfWork.Animals.CreateAsync(animal);
             _unitOfWork.Save();
         }
 
@@ -61,7 +59,7 @@ namespace AnimalRepair.BLL.Services
             // Обновление других свойств животного
 
             // Маппинг AnimalDTO в Animal
-            Animal updatedAnimal = _mapper.Map<AnimalDTO, Animal>(animalDto, animal);
+            Animal updatedAnimal = _mapper.Map<AnimalDTO, Animal>(animalDto);
 
             // Обновление животного в базе данных
             await _unitOfWork.Animals.UpdateAsync(updatedAnimal);
@@ -90,7 +88,7 @@ namespace AnimalRepair.BLL.Services
             return animalDto;
         }
 
-        public IEnumerable<AnimalDTO> GetAnimalsByCategory(string category)
+        public async Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(string category)
         {
             // Получение списка животных по категории
             IEnumerable<Animal> animals = (IEnumerable<Animal>)_unitOfWork.Animals.GetAllAsync();
