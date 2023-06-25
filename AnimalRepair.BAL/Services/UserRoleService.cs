@@ -60,7 +60,7 @@ namespace AnimalRepair.BLL.Services
 
         public async Task<UserRoleDTO> GetUserRole(int userRoleId)
         {
-            // Поиск животного по идентификатору
+            // Поиск роли по идентификатору
             UserRole userRole = await _unitOfWork.UserRoles.GetAsync(userRoleId);
             if (userRole == null)
                 throw new ValidationException("Роль не найдена", "");
@@ -72,18 +72,18 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateUserRole(UserRoleDTO UserRoleDto)
         {
-            // Поиск животного по идентификатору
+            // Поиск роли по идентификатору
             UserRole userRole = await _unitOfWork.UserRoles.GetAsync(UserRoleDto.Id);
             if (userRole == null)
                 throw new ValidationException("Животное не найдено", "");
 
-            // Обновление данных животного
+            // Обновление данных роли
             userRole.Role = UserRoleDto.Role;
 
-            // Маппинг AnimalDTO в Animal
+            // Маппинг 
             UserRole updatedUserRole = _mapper.Map<UserRoleDTO, UserRole>(UserRoleDto);
 
-            // Обновление животного в базе данных
+            // Обновление роли в базе данных
             await _unitOfWork.UserRoles.UpdateAsync(updatedUserRole);
             _unitOfWork.Save();
         }
