@@ -9,11 +9,11 @@ namespace AnimalRepair.BLL.Interfaces
 {
     public interface IAnimalService : IDisposable
     {
-        void AddAnimal(AnimalDTO animalDto);
+        Task AddAnimal(AnimalDTO animalDto);
         Task UpdateAnimal(AnimalDTO animalDto);
         Task RemoveAnimal(int animalId);
         Task<AnimalDTO> GetAnimalById(int animalId);
-        IEnumerable<AnimalDTO> GetAnimalsByCategory(string category);
+        Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(string category);
         Task<IEnumerable<AnimalDTO>> GetAllAnimalsAsync();
     }
 
