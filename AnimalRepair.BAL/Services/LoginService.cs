@@ -80,7 +80,8 @@ namespace AnimalRepair.BLL.Services
                 throw new ValidationException("Логин и пароль не найдены", "");
 
             // Обновление данных логина и пароля
-            login.Login1 = loginDto.Password;
+            login.Login1 = loginDto.Login1;
+            login.Password = loginDto.Password;
 
             // Маппинг 
             Login updatedLogin = _mapper.Map<LoginDTO, Login>(loginDto);
