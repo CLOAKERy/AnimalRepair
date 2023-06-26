@@ -1,5 +1,9 @@
-﻿using AnimalRepair.BLL.DTO;
+﻿using Animal_Repair;
+using AnimalRepair.BLL.DTO;
+using AnimalRepair.BLL.Infrastructure;
 using AnimalRepair.BLL.Interfaces;
+using AnimalRepair.DAL.Interfaces;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,27 +14,49 @@ namespace AnimalRepair.BLL.Services
 {
     internal class OrderProductService : IOrderProductService
     {
-        public Task CreateOrderProduct(OrderProductDTO orderProductDto)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        public OrderProductService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+        public async Task CreateOrderProduct(OrderProductDTO orderProductDto)
+        {
+            // Валидация данных промежуточной таблицы
+            if (string.IsNullOrEmpty(orderProductDto.IdProduct.ToString()))
+                throw new ValidationException("Продукт не может быть пустым", "");
+            if (string.IsNullOrEmpty(orderProductDto.IdOrder.ToString()))
+                throw new ValidationException("Заказ не может быть пустым", "");
+
+            // Маппинг 
+            var orderProduct = _mapper.Map<OrderProductDTO, OrderProduct>(orderProductDto);
+
+            // Пример сохранения в базу данных с использованием UnitOfWork
+            await _unitOfWork.OrderProducts.CreateAsync(orderProduct);
+            _unitOfWork.Save();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Dispose();
         }
 
-        public Task<AnimalDTO> GetOrderProductByIdOrder(int orderId)
+        public async Task<IEnumerable<OrderProductDTO>> GetOrderProductByIdOrder(int orderId)
         {
-            throw new NotImplementedException();
+            // Получение списка промежуточной таблицы по идентификатору заказа
+            IEnumerable<OrderProduct> Orders = await _unitOfWork.OrderProducts.GetOrderProductByIdOrder(orderId);
+            return _mapper.Map<IEnumerable<OrderProduct>, IEnumerable<OrderProductDTO>>(Orders);
         }
 
-        public Task<AnimalDTO> GetOrderProductByIdProduct(int productId)
+        public async Task<IEnumerable<OrderProductDTO>> GetOrderProductByIdProduct(int productId)
         {
-            throw new NotImplementedException();
+            // Получение списка промежуточной таблицы по идентификатору продукта
+            IEnumerable<OrderProduct> Orders = await _unitOfWork.OrderProducts.GetOrderProductByIdOrder(productId);
+            return _mapper.Map<IEnumerable<OrderProduct>, IEnumerable<OrderProductDTO>>(Orders);
         }
 
-        public Task RemoveOrderProduct(int orderProductId)
+        public async Task RemoveOrderProduct(int orderId)
         {
             throw new NotImplementedException();
         }

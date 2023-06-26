@@ -60,14 +60,14 @@ namespace AnimalRepair.BLL.Services
 
         public async Task<IEnumerable<OrderDTO>> GetOrderByIdCustomer(int customerId)
         {
-            // Получение списка всех заказов
+            // Получение списка заказов по пользователю
             IEnumerable<Order> Orders = await _unitOfWork.Orders.GetOrdersByCustomerId(customerId);
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(Orders);
         }
 
         public async Task<IEnumerable<OrderDTO>> GetOrdersByStatus(string status)
         {
-            // Получение списка всех заказов
+            // Получение списка заказов по статусу
             IEnumerable<Order> Orders = await _unitOfWork.Orders.GetOrdersByStatus(status);
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(Orders);
         }

@@ -12,7 +12,7 @@ namespace AnimalRepair.BLL.Interfaces
         Task CreateOrderProduct(OrderProductDTO orderProductDto);
         Task UpdateOrderProduct(OrderProductDTO orderProductDto);
         Task RemoveOrderProduct(int orderProductId);
-        Task<AnimalDTO> GetOrderProductByIdOrder(int orderId);
-        Task<AnimalDTO> GetOrderProductByIdProduct(int productId);
+        Task<IEnumerable<OrderProductDTO>> GetOrderProductByIdOrder(int orderId);
+        Task<IEnumerable<OrderProductDTO>> GetOrderProductByIdProduct(int productId);
     }
 }
