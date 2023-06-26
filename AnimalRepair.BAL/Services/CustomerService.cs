@@ -71,7 +71,7 @@ namespace AnimalRepair.BLL.Services
                 throw new ValidationException("Имя не может быть пустым", "");
             if (string.IsNullOrEmpty(customerDto.PhoneNumber.ToString()))
                 throw new ValidationException("Телефон не может быть пустым", "");
-            if (string.IsNullOrEmpty(customerDto.Address.ToString()))
+            if (string.IsNullOrEmpty(customerDto.Adress.ToString()))
                 throw new ValidationException("Адрес не может быть пустым", "");
 
             // Маппинг 
@@ -90,7 +90,7 @@ namespace AnimalRepair.BLL.Services
                 throw new ValidationException("Пользователь не найден", "");
 
             // Обновление данных логина и пароля
-            customer.Adress = customerDto.Address;
+            customer.Adress = customerDto.Adress;
             customer.IdLogin = customerDto.IdLogin;
             customer.PhoneNumber = customerDto.PhoneNumber;
             customer.Name = customerDto.Name;

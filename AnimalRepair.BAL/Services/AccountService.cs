@@ -65,7 +65,10 @@ namespace AnimalRepair.BLL.Services
                 var customer = new CustomerDTO()
                 {
                     IdLogin = lastLoginDTO.Id,
-                    IdRole = 1
+                    IdRole = 1,
+                    Name = "Lera",
+                    Adress = "Good",
+                    PhoneNumber = "+Good"
                 };
 
                 await _unitOfWork.Customers.CreateAsync(_mapper.Map<CustomerDTO, Customer>(customer));
@@ -93,9 +96,9 @@ namespace AnimalRepair.BLL.Services
                     throw new ValidationException("Пользователь не найден", "");
                 }
 
-                if (login.Password != HashPassword.GetHashPassword(login.Password))
+                if (login.Password != HashPassword.GetHashPassword(loginDTO.Password))
                 {
-                    throw new ValidationException("Неверный логин или пароль", "");
+                    throw new ValidationException($"Неверный логин или пароль {HashPassword.GetHashPassword(login.Password)}", "");
                 }
 
                 // Поиск логина и пароля по идентификатору
