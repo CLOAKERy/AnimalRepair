@@ -38,7 +38,7 @@ namespace AnimalRepair.DAL.Repositories
             }
         }
 
-        public IRepository<Customer> Customers
+        public ICustomerRepository<Customer> Customers
         {
             get
             {

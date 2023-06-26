@@ -10,5 +10,6 @@ namespace AnimalRepair.DAL.Interfaces
     public interface ILoginRepository<Login> : IRepository<Login> where Login : class
     {
         public Task<Login> GetLastAsync();
+        public Task<Login> GetByLoginAsync(string login);
     }
 }

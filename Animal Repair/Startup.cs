@@ -14,6 +14,7 @@ using Animal_Repair;
 using AnimalRepair.DAL.Interfaces;
 using AnimalRepair.DAL.Repositories;
 using AnimalRepair.BLL.DTO;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 public class Startup
 {
@@ -31,12 +32,21 @@ public class Startup
         // добавляем контекст AppDBContext в качестве сервиса в приложение
         services.AddDbContext<AnimalRepairContext>(options => options.UseSqlServer("Data Source=sql5106.site4now.net;User ID=db_a9ae8d_dbanimalre_admin;Password=a12345678;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;"));
         services.AddControllersWithViews();
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+            options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+        });
 
         var customerModule = new CustomerModule();
         customerModule.ConfigureServices(services);
 
         var animalModule = new AnimalModule();
         animalModule.ConfigureServices(services);
+
+        var accountModule = new AccountModule();
+        accountModule.ConfigureServices(services);
 
         services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
@@ -61,7 +71,9 @@ public class Startup
 
         app.UseRouting();
         app.UseStaticFiles();
-        app.UseDeveloperExceptionPage();    
+        app.UseDeveloperExceptionPage();
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(

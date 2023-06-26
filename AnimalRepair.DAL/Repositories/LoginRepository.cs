@@ -18,5 +18,10 @@ namespace AnimalRepair.DAL.Repositories
         {   var entity = await _dbContext.Set<Login>().OrderByDescending(x => x.Id).FirstOrDefaultAsync();
             return entity;
         }
+        public async Task<Login> GetByLoginAsync(string login)
+        {
+            var customers = await FindAsync(c => c.Login1 == login);
+            return customers.FirstOrDefault();
+        }
     }
 }
