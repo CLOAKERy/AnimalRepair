@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.DAL.Repositories
 {
-    internal class LoginRepository : BaseRepository<Login>
+    internal class LoginRepository : BaseRepository<Login>, ILoginRepository<Login>
     {
         public LoginRepository(DbContext dbContext) : base(dbContext)
         {

@@ -118,7 +118,7 @@ namespace AnimalRepair.DAL.Repositories
             }
         }
 
-        public IRepository<Login> Logins
+        public ILoginRepository<Login> Logins
         {
             get
             {

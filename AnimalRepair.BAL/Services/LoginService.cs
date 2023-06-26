@@ -94,7 +94,8 @@ namespace AnimalRepair.BLL.Services
         public async Task<LoginDTO> GetLastLogin()
         {
             // Получение последнего логина из таблицы
-            Login lastLogin = await _eFUnitOfWork.Logins.GetLastAsync();
+            Login lastLogin = await _unitOfWork.Logins.GetLastAsync();
+            //Login lastLogin = await _eFUnitOfWork.Logins.GetLastAsync();
             if (lastLogin == null)
                 throw new ValidationException("Логин и пароль не найдены", "");
 
