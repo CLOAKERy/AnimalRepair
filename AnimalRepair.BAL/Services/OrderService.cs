@@ -1,48 +1,72 @@
-﻿using AnimalRepair.BLL.DTO;
+﻿using Animal_Repair;
+using AnimalRepair.BLL.DTO;
+using AnimalRepair.BLL.Infrastructure;
 using AnimalRepair.BLL.Interfaces;
+using AnimalRepair.DAL.Interfaces;
+using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace AnimalRepair.BLL.Services
 {
-    internal class OrderService : IOrderService
+    public class OrderService : IOrderService
     {
-        public Task CreateOrder(OrderDTO orderDto)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        public OrderService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+        public async Task CreateOrder(OrderDTO orderDto)
+        {
+            if (string.IsNullOrEmpty(orderDto.IdCustomer.ToString()))
+                throw new ValidationException("Поле заказчика не может быть пустым", "");
+            if (string.IsNullOrEmpty(orderDto.Date))
+                throw new ValidationException("Поле даты заказа не может быть пустым", "");
+            if (string.IsNullOrEmpty(orderDto.Price.ToString()))
+                throw new ValidationException("Поле цены не может быть пкстым", "");
+
+            var order = _mapper.Map<OrderDTO, Order>(orderDto);
+            await _unitOfWork.Orders.CreateAsync(order);
+            _unitOfWork.Save();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Dispose();
         }
 
-        public Task<AnimalDTO> GetAnimalById(int animalId)
+
+        public async Task RemoveOrder(int orderId)
         {
-            throw new NotImplementedException();
+            Order order = await _unitOfWork.Orders.GetAsync(orderId);
+            if (order == null)
+                throw new ValidationException("Заказ не найден", "");
+
+            await _unitOfWork.Orders.DeleteAsync(orderId);
+            _unitOfWork.Save();
         }
 
-        public Task<AnimalDTO> GetAnimalByIdCustomer(int customerId)
+        public async Task UpdateOrder(OrderDTO orderDto)
         {
-            throw new NotImplementedException();
-        }
+            // Поиск животного по идентификатору
+            Order order = await _unitOfWork.Orders.GetAsync(orderDto.Id);
+            if (order == null)
+                throw new ValidationException("Заказ не найден", "");
 
-        public Task<IEnumerable<OrderDTO>> GetOrdersByStatus(string status)
-        {
-            throw new NotImplementedException();
-        }
+ 
+            order.IdCustomer = orderDto.IdCustomer;
+            order.Date = orderDto.Date;
+            order.Price = orderDto.Price;
 
-        public Task RemoveOrder(int animalId)
-        {
-            throw new NotImplementedException();
-        }
+            Order updatedOrder = _mapper.Map<OrderDTO, Order>(orderDto);
 
-        public Task UpdateOrder(OrderDTO orderDto)
-        {
-            throw new NotImplementedException();
+            await _unitOfWork.Orders.UpdateAsync(updatedOrder);
+            _unitOfWork.Save();
         }
     }
 }
