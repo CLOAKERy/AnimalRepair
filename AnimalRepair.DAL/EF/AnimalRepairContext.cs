@@ -173,7 +173,7 @@ public partial class AnimalRepairContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("Login");
             entity.Property(e => e.Password)
-                .HasMaxLength(15)
+                .HasMaxLength(50)
                 .IsFixedLength();
         });
 

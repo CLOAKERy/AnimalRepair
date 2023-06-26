@@ -16,6 +16,7 @@ namespace AnimalRepair.BLL.Services
     public class LoginService : ILoginService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly EFUnitOfWork _eFUnitOfWork;
         private readonly IMapper _mapper;
         public LoginService(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -90,5 +91,17 @@ namespace AnimalRepair.BLL.Services
             await _unitOfWork.Logins.UpdateAsync(updatedLogin);
             _unitOfWork.Save();
         }
+        public async Task<LoginDTO> GetLastLogin()
+        {
+            // Получение последнего логина из таблицы
+            Login lastLogin = await _unitOfWork.Logins.GetLastAsync();
+            if (lastLogin == null)
+                throw new ValidationException("Логин и пароль не найдены", "");
+
+            LoginDTO lastLoginDTO = _mapper.Map<Login, LoginDTO>(lastLogin);
+
+            return lastLoginDTO;
+        }
+
     }
 }

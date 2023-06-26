@@ -14,5 +14,9 @@ namespace AnimalRepair.DAL.Repositories
         public LoginRepository(DbContext dbContext) : base(dbContext)
         {
         }
+        public async Task<Login> GetLastAsync()
+        {   var entity = await _dbContext.Set<Login>().OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            return entity;
+        }
     }
 }
