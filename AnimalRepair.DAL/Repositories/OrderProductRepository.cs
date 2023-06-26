@@ -16,5 +16,7 @@ namespace OrderProductRepair.DAL.Repositories
         public OrderProductRepository(DbContext dbContext) : base(dbContext)
         {
         }
+
+
     }
 }
