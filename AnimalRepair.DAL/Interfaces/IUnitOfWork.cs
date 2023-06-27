@@ -16,7 +16,7 @@ namespace AnimalRepair.DAL.Interfaces
         IRepository<KindOfAnimal> KindOfAnimals { get; }
         IRepository<KindOfGender> KindOfGenders { get; }
         IRepository<KindOfProduct> KindOfProducts { get; }
-        IRepository<Product> Products { get; }
+        IProductRepository<Product> Products { get; }
         IRepository<Admin> Admins { get; }
         ILoginRepository<Login> Logins { get; }
         IRepository<UserRole> UserRoles { get; }

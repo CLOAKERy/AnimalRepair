@@ -98,7 +98,7 @@ namespace AnimalRepair.DAL.Repositories
             }
         }
 
-        public IRepository<Product> Products
+        public IProductRepository<Product> Products
         {
             get
             {
