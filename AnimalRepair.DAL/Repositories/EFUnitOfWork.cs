@@ -1,5 +1,6 @@
 ﻿using Animal_Repair;
 using AnimalRepair.DAL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using OrderProductRepair.DAL.Repositories;
 using OrderRepair.DAL.Repositories;
 using System;
@@ -24,9 +25,10 @@ namespace AnimalRepair.DAL.Repositories
         private OrderRepository orderRepository;
         private ProductRepository productRepository;
         private UserRoleRepository userRoleRepository;
-        public EFUnitOfWork()
+        public EFUnitOfWork(IConfiguration configuration)
         {
-            db = new AnimalRepairContext();
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            db = new AnimalRepairContext(connectionString);
         }
         public IAnimalRepository<Animal> Animals
         {
