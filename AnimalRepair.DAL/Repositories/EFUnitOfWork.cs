@@ -48,7 +48,7 @@ namespace AnimalRepair.DAL.Repositories
             }
         }
 
-        public IRepository<Order> Orders
+        public IOrderRepository<Order> Orders
         {
             get
             {
@@ -58,7 +58,7 @@ namespace AnimalRepair.DAL.Repositories
             }
         }
 
-        public IRepository<OrderProduct> OrderProducts
+        public IOrderProductRepository<OrderProduct> OrderProducts
         {
             get
             {

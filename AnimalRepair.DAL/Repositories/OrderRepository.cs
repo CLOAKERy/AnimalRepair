@@ -11,10 +11,24 @@ using System.Threading.Tasks;
 
 namespace OrderRepair.DAL.Repositories
 {
-    internal class OrderRepository : BaseRepository<Order>
+    internal class OrderRepository : BaseRepository<Order>, IOrderRepository<Order>
     {
         public OrderRepository(DbContext dbContext) : base(dbContext)
         {
+        }
+
+        public async Task<IEnumerable<Order>> GetOrdersByCustomerId(int customerId)
+        {
+            return await _dbContext.Set<Order>()
+                .Where(a => a.IdCustomer == customerId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Order>> GetOrdersByStatus(string status)
+        {
+            return await _dbContext.Set<Order>()
+                .Where(a => a.Status == status)
+                .ToListAsync();
         }
     }
 }

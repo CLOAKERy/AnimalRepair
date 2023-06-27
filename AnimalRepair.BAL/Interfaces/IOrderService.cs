@@ -12,6 +12,8 @@ namespace AnimalRepair.BLL.Interfaces
         Task CreateOrder(OrderDTO orderDto);
         Task RemoveOrder(int orderId);
         Task UpdateOrder(OrderDTO orderDto);
-
+        Task<OrderDTO> GetOrderById(int orderId);
+        Task<IEnumerable<OrderDTO>> GetOrderByIdCustomer(int customerId);
+        Task<IEnumerable<OrderDTO>> GetOrdersByStatus(string status);
     }
 }

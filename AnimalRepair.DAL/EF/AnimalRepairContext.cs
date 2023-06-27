@@ -186,6 +186,9 @@ public partial class AnimalRepairContext : DbContext
                 .HasMaxLength(15)
                 .IsFixedLength();
             entity.Property(e => e.IdCustomer).HasColumnName("idCustomer");
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .IsFixedLength();
 
             entity.HasOne(d => d.IdCustomerNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdCustomer)

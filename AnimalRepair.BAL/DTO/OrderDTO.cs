@@ -15,5 +15,6 @@ namespace AnimalRepair.BLL.DTO
         public string Date { get; set; } = null!;
 
         public double Price { get; set; }
+        public string Status { get; set; } = null!;
     }
 }

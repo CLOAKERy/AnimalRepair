@@ -13,6 +13,8 @@ public partial class Order
 
     public double Price { get; set; }
 
+    public string Status { get; set; } = null!;
+
     public virtual ICollection<Animal> Animals { get; set; } = new List<Animal>();
 
     public virtual Customer IdCustomerNavigation { get; set; } = null!;
