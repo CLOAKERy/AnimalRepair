@@ -5,7 +5,6 @@
 }
 
 
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -21,10 +20,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Picture)
             </th>
-@*            <th>
-                @Html.DisplayNameFor(model => model.IdGenderNavigation)
-            </th>
             <th>
+                @Html.DisplayNameFor(model => model.GenderName)
+            </th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.IdKindOfAnimalNavigation)
             </th>
             <th>
@@ -45,10 +44,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Picture)
             </td>
-           @* <td>
-                @Html.DisplayFor(modelItem => item.IdGenderNavigation.Gender)
-            </td>
             <td>
+                @Html.DisplayFor(modelItem => item.GenderName)
+            </td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.IdKindOfAnimalNavigation.Name)
             </td>
             <td>

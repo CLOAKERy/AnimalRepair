@@ -28,7 +28,7 @@ namespace AnimalRepair.DAL.Repositories
         {
             db = new AnimalRepairContext();
         }
-        public IRepository<Animal> Animals
+        public IAnimalRepository<Animal> Animals
         {
             get
             {
