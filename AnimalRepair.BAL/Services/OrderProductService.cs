@@ -51,18 +51,6 @@ namespace AnimalRepair.BLL.Services
             return _mapper.Map<IEnumerable<OrderProduct>, IEnumerable<OrderProductDTO>>(Orders);
         }
 
-        public async Task RemoveOrderProduct(int orderId)
-            if (string.IsNullOrEmpty(orderProductDto.IdProduct.ToString()))
-                throw new ValidationException("Поле продукта не может быть пустым", "");
-            if (string.IsNullOrEmpty(orderProductDto.IdOrder.ToString()))
-                throw new ValidationException("Поле заказа не может быть пустым", "");
-
-
-            var orderProduct = _mapper.Map<OrderProductDTO, OrderProduct>(orderProductDto);
-            await _unitOfWork.OrderProducts.CreateAsync(orderProduct);
-            _unitOfWork.Save();
-        }
-
         public void Dispose()
         {
             _unitOfWork.Dispose();

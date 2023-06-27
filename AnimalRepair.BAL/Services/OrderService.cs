@@ -39,6 +39,7 @@ namespace AnimalRepair.BLL.Services
             // Пример сохранения в базу данных с использованием UnitOfWork
             await _unitOfWork.Orders.CreateAsync(order);
             _unitOfWork.Save();
+        }
 
         public async Task<OrderDTO> GetOrderById(int orderId)
         {
@@ -64,17 +65,6 @@ namespace AnimalRepair.BLL.Services
             // Получение списка заказов по статусу
             IEnumerable<Order> Orders = await _unitOfWork.Orders.GetOrdersByStatus(status);
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(Orders);
-        }
-            if (string.IsNullOrEmpty(orderDto.IdCustomer.ToString()))
-                throw new ValidationException("Поле заказчика не может быть пустым", "");
-            if (string.IsNullOrEmpty(orderDto.Date))
-                throw new ValidationException("Поле даты заказа не может быть пустым", "");
-            if (string.IsNullOrEmpty(orderDto.Price.ToString()))
-                throw new ValidationException("Поле цены не может быть пкстым", "");
-
-            var order = _mapper.Map<OrderDTO, Order>(orderDto);
-            await _unitOfWork.Orders.CreateAsync(order);
-            _unitOfWork.Save();
         }
 
         public void Dispose()
