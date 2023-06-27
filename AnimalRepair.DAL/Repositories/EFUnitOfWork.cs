@@ -38,7 +38,7 @@ namespace AnimalRepair.DAL.Repositories
             }
         }
 
-        public IRepository<Customer> Customers
+        public ICustomerRepository<Customer> Customers
         {
             get
             {
@@ -118,7 +118,7 @@ namespace AnimalRepair.DAL.Repositories
             }
         }
 
-        public IRepository<Login> Logins
+        public ILoginRepository<Login> Logins
         {
             get
             {

@@ -71,7 +71,7 @@ namespace AnimalRepair.BLL.Services
                 throw new ValidationException("Имя не может быть пустым", "");
             if (string.IsNullOrEmpty(customerDto.PhoneNumber.ToString()))
                 throw new ValidationException("Телефон не может быть пустым", "");
-            if (string.IsNullOrEmpty(customerDto.Address.ToString()))
+            if (string.IsNullOrEmpty(customerDto.Adress.ToString()))
                 throw new ValidationException("Адрес не может быть пустым", "");
 
             // Маппинг 
@@ -90,7 +90,7 @@ namespace AnimalRepair.BLL.Services
                 throw new ValidationException("Пользователь не найден", "");
 
             // Обновление данных логина и пароля
-            customer.Adress = customerDto.Address;
+            customer.Adress = customerDto.Adress;
             customer.IdLogin = customerDto.IdLogin;
             customer.PhoneNumber = customerDto.PhoneNumber;
             customer.Name = customerDto.Name;
@@ -102,6 +102,18 @@ namespace AnimalRepair.BLL.Services
             // Обновление пользователя в базе данных
             await _unitOfWork.Customers.UpdateAsync(updatedCustomer);
             _unitOfWork.Save();
+        }
+
+        public async Task<CustomerDTO> GetUserByLogin(int IdLogin)
+        {
+            // Поиск логина и пароля по идентификатору
+            Customer customer = await _unitOfWork.Customers.GetByLoginIdAsync(IdLogin);
+            if (customer == null)
+                throw new ValidationException("Пользователь не найден", "");
+
+            CustomerDTO customerDTO = _mapper.Map<Customer, CustomerDTO>(customer);
+
+            return customerDTO;
         }
     }
 }

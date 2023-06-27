@@ -14,5 +14,6 @@ namespace AnimalRepair.BLL.Interfaces
         Task<IEnumerable<LoginDTO>> GetAllLogins();
         Task UpdateLogin(LoginDTO loginDto);
         Task DeleteLogin(int loginId);
+        Task<LoginDTO> GetLastLogin();
     }
 }

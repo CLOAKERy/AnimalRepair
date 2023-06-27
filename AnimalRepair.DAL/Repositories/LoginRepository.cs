@@ -9,10 +9,19 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.DAL.Repositories
 {
-    internal class LoginRepository : BaseRepository<Login>
+    internal class LoginRepository : BaseRepository<Login>, ILoginRepository<Login>
     {
         public LoginRepository(DbContext dbContext) : base(dbContext)
         {
+        }
+        public async Task<Login> GetLastAsync()
+        {   var entity = await _dbContext.Set<Login>().OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            return entity;
+        }
+        public async Task<Login> GetByLoginAsync(string login)
+        {
+            var customers = await FindAsync(c => c.Login1 == login);
+            return customers.FirstOrDefault();
         }
     }
 }

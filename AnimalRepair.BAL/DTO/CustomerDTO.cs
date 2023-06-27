@@ -12,7 +12,7 @@ namespace AnimalRepair.BLL.DTO
         public int IdRole { get; set; }
         public int IdLogin { get; set; }
         public string Name { get; set; } = null!;
-        public string Address { get; set; } = null!;
+        public string Adress { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
 
     }

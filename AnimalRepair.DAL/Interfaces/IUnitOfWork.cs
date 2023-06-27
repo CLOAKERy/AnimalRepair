@@ -10,7 +10,7 @@ namespace AnimalRepair.DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Animal> Animals { get; }
-        IRepository<Customer> Customers { get; }
+        ICustomerRepository<Customer> Customers { get; }
         IRepository<Order> Orders { get; }
         IRepository<OrderProduct> OrderProducts { get; }
         IRepository<KindOfAnimal> KindOfAnimals { get; }
@@ -18,7 +18,7 @@ namespace AnimalRepair.DAL.Interfaces
         IRepository<KindOfProduct> KindOfProducts { get; }
         IRepository<Product> Products { get; }
         IRepository<Admin> Admins { get; }
-        IRepository<Login> Logins { get; }
+        ILoginRepository<Login> Logins { get; }
         IRepository<UserRole> UserRoles { get; }
         void Save();
     }

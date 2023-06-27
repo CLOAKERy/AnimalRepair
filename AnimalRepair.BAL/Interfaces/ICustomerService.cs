@@ -15,5 +15,6 @@ namespace AnimalRepair.BLL.Interfaces
             Task<IEnumerable<CustomerDTO>> GetUsers();
             Task UpdateUserProfile(CustomerDTO customerDto);
             Task DeleteUser(int userId);
+            Task<CustomerDTO> GetUserByLogin(int IdLogin);
     }
 }
