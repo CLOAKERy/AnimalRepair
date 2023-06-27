@@ -2,6 +2,7 @@
 using AnimalRepair.BLL.DTO;
 using AnimalRepair.BLL.Infrastructure;
 using AnimalRepair.BLL.Interfaces;
+using AnimalRepair.BLL.Mapping;
 using AnimalRepair.DAL.Interfaces;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +17,7 @@ namespace AnimalRepair.BLL.Services
     public class AnimalService : IAnimalService
     {
         private readonly IUnitOfWork _unitOfWork;
+        
         private readonly IMapper _mapper;
 
         public AnimalService(IUnitOfWork unitOfWork, IMapper mapper)
@@ -91,15 +93,23 @@ namespace AnimalRepair.BLL.Services
         public async Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(string category)
         {
             // Получение списка животных по категории
-            IEnumerable<Animal> animals = (IEnumerable<Animal>)_unitOfWork.Animals.GetAllAsync();
+            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAllAsync();
             return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
         }
 
         public async Task<IEnumerable<AnimalDTO>> GetAllAnimalsAsync()
         {
-            // Получение списка всех животных
+            var animals = await _unitOfWork.Animals.GetAllAsync(
+                a => a.IdGenderNavigation,
+                a => a.IdKindOfAnimalNavigation
+            );
+
+            var animalMapped = _mapper.Map<IEnumerable<AnimalDTO>>(animals);
+            return animalMapped;
+           /* // Получение списка всех животных
             IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAllAsync();
-            return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
+            var animalMapped = _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
+            return animalMapped;*/
         }
 
         public void Dispose()

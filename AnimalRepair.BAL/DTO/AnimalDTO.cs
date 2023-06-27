@@ -11,10 +11,12 @@ namespace AnimalRepair.BLL.DTO
         public int Id { get; set; }
 
         public int IdKindOfAnimal { get; set; }
+        public string KindOfAnimalName { get; set; } = null!;
 
         public int? IdOrder { get; set; }
 
         public int IdGender { get; set; }
+        public string GenderName { get; set; } = null!;
 
         public string DateOfBirth { get; set; } = null!;
 
