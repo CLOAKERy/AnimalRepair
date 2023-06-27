@@ -20,5 +20,10 @@ namespace Animal_Repair.Controllers
             IEnumerable<AnimalDTO> AnimalDtos = await animalService.GetAllAnimalsAsync();
             return View(AnimalDtos);
         }
+
+        [HttpGet]
+        public IActionResult Create() => View();
     }
+
+    
 }
