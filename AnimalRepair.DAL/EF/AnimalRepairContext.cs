@@ -70,9 +70,9 @@ public partial class AnimalRepairContext : DbContext
         {
             entity.ToTable("Animal");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("ID");
+            entity.Property(e => e.Id).HasColumnName("ID");
+
+
             entity.Property(e => e.DateOfBirth)
                 .HasMaxLength(15)
                 .IsFixedLength();
