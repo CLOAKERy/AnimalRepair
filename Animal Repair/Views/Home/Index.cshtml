@@ -5,7 +5,13 @@
 }
 
 <h2>Index</h2>
-
-<div>
+@if (User.Identity.IsAuthenticated)
+{
+   <div>
     @Html.ActionLink("GetAnimal", "Animal")
-</div>
+</div> 
+}
+@if (User.Identity.IsAuthenticated == false)
+{
+    <h1>Войдите для просмотра</h1>
+}

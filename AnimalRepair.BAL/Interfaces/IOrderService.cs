@@ -10,8 +10,8 @@ namespace AnimalRepair.BLL.Interfaces
     internal interface IOrderService : IDisposable
     {
         Task CreateOrder(OrderDTO orderDto);
-        Task UpdateOrder(OrderDTO orderDto);
         Task RemoveOrder(int orderId);
+        Task UpdateOrder(OrderDTO orderDto);
         Task<OrderDTO> GetOrderById(int orderId);
         Task<IEnumerable<OrderDTO>> GetOrderByIdCustomer(int customerId);
         Task<IEnumerable<OrderDTO>> GetOrdersByStatus(string status);

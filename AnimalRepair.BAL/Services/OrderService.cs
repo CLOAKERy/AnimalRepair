@@ -4,15 +4,15 @@ using AnimalRepair.BLL.Infrastructure;
 using AnimalRepair.BLL.Interfaces;
 using AnimalRepair.DAL.Interfaces;
 using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace AnimalRepair.BLL.Services
 {
-    internal class OrderService : IOrderService
+    public class OrderService : IOrderService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -39,12 +39,6 @@ namespace AnimalRepair.BLL.Services
             // Пример сохранения в базу данных с использованием UnitOfWork
             await _unitOfWork.Orders.CreateAsync(order);
             _unitOfWork.Save();
-        }
-
-        public void Dispose()
-        {
-            _unitOfWork.Dispose();
-        }
 
         public async Task<OrderDTO> GetOrderById(int orderId)
         {
@@ -71,6 +65,22 @@ namespace AnimalRepair.BLL.Services
             IEnumerable<Order> Orders = await _unitOfWork.Orders.GetOrdersByStatus(status);
             return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(Orders);
         }
+            if (string.IsNullOrEmpty(orderDto.IdCustomer.ToString()))
+                throw new ValidationException("Поле заказчика не может быть пустым", "");
+            if (string.IsNullOrEmpty(orderDto.Date))
+                throw new ValidationException("Поле даты заказа не может быть пустым", "");
+            if (string.IsNullOrEmpty(orderDto.Price.ToString()))
+                throw new ValidationException("Поле цены не может быть пкстым", "");
+
+            var order = _mapper.Map<OrderDTO, Order>(orderDto);
+            await _unitOfWork.Orders.CreateAsync(order);
+            _unitOfWork.Save();
+        }
+
+        public void Dispose()
+        {
+            _unitOfWork.Dispose();
+        }
 
         public async Task RemoveOrder(int orderId)
         {
@@ -84,7 +94,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateOrder(OrderDTO orderDto)
         {
-            // Поиск заказа по идентификатору
             Order order = await _unitOfWork.Orders.GetAsync(orderDto.Id);
             if (order == null)
                 throw new ValidationException("Заказ не найден", "");
@@ -95,12 +104,9 @@ namespace AnimalRepair.BLL.Services
             order.IdCustomer = orderDto.IdCustomer;
             order.Status = orderDto.Status;
 
-            // Обновление других свойств животного
-
             // Маппинг OrderDTO в Order
             Order updatedOrder = _mapper.Map<OrderDTO, Order>(orderDto);
 
-            // Обновление заказа в базе данных
             await _unitOfWork.Orders.UpdateAsync(updatedOrder);
             _unitOfWork.Save();
         }
