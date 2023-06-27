@@ -10,9 +10,9 @@ namespace AnimalRepair.DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Animal> Animals { get; }
+        IOrderRepository<Order> Orders { get; }
+        IOrderProductRepository<OrderProduct> OrderProducts { get; }
         ICustomerRepository<Customer> Customers { get; }
-        IRepository<Order> Orders { get; }
-        IRepository<OrderProduct> OrderProducts { get; }
         IRepository<KindOfAnimal> KindOfAnimals { get; }
         IRepository<KindOfGender> KindOfGenders { get; }
         IRepository<KindOfProduct> KindOfProducts { get; }

@@ -11,8 +11,9 @@ namespace AnimalRepair.BLL.Interfaces
     internal interface IOrderProductService : IDisposable
     {
         Task RemoveOrderProduct(int orderProductId);
+        Task<IEnumerable<OrderProductDTO>> GetOrderProductByIdOrder(int orderId);
+        Task<IEnumerable<OrderProductDTO>> GetOrderProductByIdProduct(int productId);
         Task UpdateOrderProduct(OrderProductDTO orderProductDto);
         Task CreateOrderProduct(OrderProductDTO orderProductDto);
-
     }
 }
