@@ -36,6 +36,9 @@
                         }
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Животные</a>
+                            </li>
                             <form method="post" asp-controller="Account" asp-action="Logout">
                                 <input type="submit" value="Выход" />
                             </form>
