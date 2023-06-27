@@ -1,5 +1,7 @@
-﻿using AnimalRepair.BLL.DTO;
+﻿using Animal_Repair.Models;
+using AnimalRepair.BLL.DTO;
 using AnimalRepair.BLL.Interfaces;
+using AnimalRepair.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Animal_Repair.Controllers
@@ -9,9 +11,14 @@ namespace Animal_Repair.Controllers
         private readonly ILogger<AnimalController> _logger;
 
         IAnimalService animalService;
-        public AnimalController(IAnimalService serv, ILogger<AnimalController> logger)
+        IKindOfAnimalService kindOfAnimalService;
+        IKindOfGenderService kindOfGenderService;
+        public AnimalController(IKindOfAnimalService kindOfAnimalserv, IKindOfGenderService kindOfGenderserv,
+            IAnimalService animalserv, ILogger<AnimalController> logger)
         {
-            animalService = serv;
+            kindOfGenderService = kindOfGenderserv;
+            kindOfAnimalService = kindOfAnimalserv;
+            animalService = animalserv;
             _logger = logger;
         }
         [HttpGet]
@@ -22,7 +29,15 @@ namespace Animal_Repair.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public async Task<ActionResult> Create()
+        {
+            AnimalCreateViewModel animalCreate = new();
+            IEnumerable<KindOfAnimalDTO> kindOfAnimalDTO = await kindOfAnimalService.GetAllKindOfAnimalsAsync();
+            animalCreate.KindOfAnimals = kindOfAnimalDTO;
+            IEnumerable<KindOfGenderDTO> kindOfGenderDTO = await kindOfGenderService.GetAllKindOfGendersAsync();
+            animalCreate.KindOfGenders = kindOfGenderDTO;
+            return View(animalCreate);
+        }
     }
 
     
