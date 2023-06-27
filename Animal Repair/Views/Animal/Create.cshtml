@@ -15,7 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="IdKindOfAnimal" class="control-label"></label>
-                <select asp-for="IdKindOfAnimal" class ="form-control" asp-items="ViewBag.IdKindOfAnimal"></select>
+                <select asp-for="IdKindOfAnimal" class ="form-control">
+                    @foreach (KindOfAnimalDTO kind in Model.KindOfAnimals)
+                    {
+                        <option value="@kind.Id">@kind.Name</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="IdGender" class="control-label"></label>
