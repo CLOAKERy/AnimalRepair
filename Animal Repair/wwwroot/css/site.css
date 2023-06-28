@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.filtrBox {
+    display: flex;
+    justify-content: flex-start;
+    border: 5px solid black;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

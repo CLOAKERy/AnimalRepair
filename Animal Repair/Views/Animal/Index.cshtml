@@ -1,10 +1,21 @@
-﻿@model IEnumerable<AnimalRepair.BLL.DTO.AnimalDTO>
+﻿@using AnimalRepair.BLL.DTO;
+@model Animal_Repair.Models.AnimalIndexModel
 
 @{
     ViewData["Title"] = "Index";
+    var names = Model.Animals;
 }
-
-
+<p>Фильтрация</p>
+<ul class="filtrBox">
+    @foreach (KindOfAnimalDTO kind in Model.KindOfAnimals)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index"
+            asp-route-kindOfAnimalId="@Url.Content(kind.Id.ToString())">@Url.Content(kind.Name)</a>
+        </li>
+    }
+    
+</ul>
 <p>
     <a a class="nav-link text-dark" asp-action="Create" asp-controller="Animal">Create New</a>
 </p>
@@ -12,28 +23,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                <p>Дата рождения</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                <p>Описание</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Picture)
+                <p>Фото</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GenderName)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.IdKindOfAnimalNavigation)
+                <p>Пол</p>
             </th>
             <th>
+                <p>Тип</p>
+            </th>
+@*            <th>
                 @Html.DisplayNameFor(model => model.IdOrderNavigation)
             </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Animals) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
@@ -47,10 +58,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GenderName)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.IdKindOfAnimalNavigation.Name)
-            </td>
             <td>
+                @Html.DisplayFor(modelItem => item.KindOfAnimalName)
+            </td>
+@*            <td>
                 @Html.DisplayFor(modelItem => item.IdOrderNavigation.Date)
             </td>*@
             <td>
