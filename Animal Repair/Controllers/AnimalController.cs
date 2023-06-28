@@ -27,20 +27,37 @@ namespace Animal_Repair.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int kindOfAnimalId)
         {
-            IEnumerable<AnimalDTO> AnimalDtos = await animalService.GetAllAnimalsAsync();
-            return View(AnimalDtos);
+            AnimalIndexModel model = new()
+            {
+                
+                KindOfAnimals = await kindOfAnimalService.GetAllKindOfAnimalsAsync(),
+                KindOfGenders = await kindOfGenderService.GetAllKindOfGendersAsync()
+            };
+
+            if (kindOfAnimalId == 0)
+            {
+
+                model.Animals = await animalService.GetAllAnimalsAsync();
+                return View(model);
+            }
+            else
+            {
+                model.Animals = await animalService.GetAnimalsByCategory(kindOfAnimalId);
+                return View(model);
+            }
+            
         }
 
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            AnimalCreateViewModel animalCreate = new();
-            IEnumerable<KindOfAnimalDTO> kindOfAnimalDTO = await kindOfAnimalService.GetAllKindOfAnimalsAsync();
-            animalCreate.KindOfAnimals = kindOfAnimalDTO;
-            IEnumerable<KindOfGenderDTO> kindOfGenderDTO = await kindOfGenderService.GetAllKindOfGendersAsync();
-            animalCreate.KindOfGenders = kindOfGenderDTO;
+            AnimalCreateViewModel animalCreate = new()
+            {
+                KindOfAnimals = await kindOfAnimalService.GetAllKindOfAnimalsAsync(),
+                KindOfGenders = await kindOfGenderService.GetAllKindOfGendersAsync()
+            };
             return View(animalCreate);
         }
         [HttpPost]

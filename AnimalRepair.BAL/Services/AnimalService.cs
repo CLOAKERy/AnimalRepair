@@ -92,7 +92,7 @@ namespace AnimalRepair.BLL.Services
         public async Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(int IdCategory)
         {
             // Получение списка животных по категории
-            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAnimalsByGenderAsync(IdCategory);
+            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetByCategoryAsync(IdCategory);
             return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
         }
 
