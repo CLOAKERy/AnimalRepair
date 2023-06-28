@@ -114,6 +114,34 @@ namespace Animal_Repair.Controllers
             await animalService.UpdateAnimal(animalEdit);
             return RedirectToAction("Index", "Animal");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(AnimalCreateViewModel model)
+        {
+            WorkingWithImg img = new();
+            string uploadFolder = _hostingEnvironment.WebRootPath + model.Picture;
+            img.DeleteImg(uploadFolder);
+            await animalService.RemoveAnimal(model.Id);
+            return RedirectToAction("Index", "Animal");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(AnimalCreateViewModel model)
+        {
+            AnimalDTO animal = await animalService.GetAnimalById(model.Id);
+            AnimalCreateViewModel animalDetails = new()
+            {
+                Id = animal.Id,
+                GenderName = model.GenderName, 
+                KindOfAnimalName = model.KindOfAnimalName, 
+                IdKindOfAnimal = animal.IdKindOfAnimal,
+                IdGender = animal.IdGender,
+                DateOfBirth = animal.DateOfBirth,
+                Description = animal.Description,
+                Picture = animal.Picture,
+            };
+            return View(animalDetails);
+        }
     }
 
 

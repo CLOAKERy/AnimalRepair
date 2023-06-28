@@ -54,5 +54,12 @@ namespace AnimalRepair.BLL.BusinessModel
 
             return null; // В случае, если файл изображения не был выбран
         }
+        public void DeleteImg(string? filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
     }
 }
