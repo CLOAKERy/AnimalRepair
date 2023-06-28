@@ -58,7 +58,6 @@ namespace AnimalRepair.BLL.Services
             animal.IdGender = animalDto.IdGender;
             animal.DateOfBirth = animalDto.DateOfBirth;
             animal.Description = animalDto.Description;
-            // Обновление других свойств животного
 
             // Маппинг AnimalDTO в Animal
             Animal updatedAnimal = _mapper.Map<AnimalDTO, Animal>(animalDto);
@@ -90,10 +89,10 @@ namespace AnimalRepair.BLL.Services
             return animalDto;
         }
 
-        public async Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(string category)
+        public async Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(int IdCategory)
         {
             // Получение списка животных по категории
-            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAllAsync();
+            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAnimalsByGenderAsync(IdCategory);
             return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
         }
 
@@ -106,15 +105,17 @@ namespace AnimalRepair.BLL.Services
 
             var animalMapped = _mapper.Map<IEnumerable<AnimalDTO>>(animals);
             return animalMapped;
-           /* // Получение списка всех животных
-            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAllAsync();
-            var animalMapped = _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
-            return animalMapped;*/
         }
 
         public void Dispose()
         {
             _unitOfWork.Dispose();
+        }
+
+        public async Task<IEnumerable<AnimalDTO>> GetAnimalsByGenderAsync(int idGender)
+        {
+            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAnimalsByGenderAsync(idGender);
+            return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
         }
     }
 
