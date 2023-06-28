@@ -37,6 +37,14 @@ namespace AnimalRepair.DAL.Repositories
 
             return await query.ToListAsync();
         }
+        public async Task<IEnumerable<Animal>> GetAnimalsByGenderAsync(int idGender)
+        {
+            return await _dbContext.Set<Animal>()
+                .Where(a => a.IdGender == idGender)
+                .ToListAsync();
+        }
+
+
 
     }
 }

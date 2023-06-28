@@ -1,4 +1,5 @@
-﻿using AnimalRepair.BLL.DTO;
+﻿using Animal_Repair;
+using AnimalRepair.BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace AnimalRepair.BLL.Interfaces
         Task RemoveAnimal(int animalId);
         Task<AnimalDTO> GetAnimalById(int animalId);
         Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(string category);
+        Task<IEnumerable<AnimalDTO>> GetAnimalsByGenderAsync(int idGender);
         Task<IEnumerable<AnimalDTO>> GetAllAnimalsAsync();
     }
 

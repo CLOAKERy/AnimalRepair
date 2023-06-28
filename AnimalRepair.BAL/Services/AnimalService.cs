@@ -116,6 +116,12 @@ namespace AnimalRepair.BLL.Services
         {
             _unitOfWork.Dispose();
         }
+
+        public async Task<IEnumerable<AnimalDTO>> GetAnimalsByGenderAsync(int idGender)
+        {
+            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAnimalsByGenderAsync(idGender);
+            return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
+        }
     }
 
 }
