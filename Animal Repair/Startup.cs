@@ -30,7 +30,9 @@ public class Startup
         // получаем строку подключения из файла конфигурации
         string connection = Configuration.GetConnectionString("DefaultConnection");
         // добавляем контекст AppDBContext в качестве сервиса в приложение
-        services.AddDbContext<AnimalRepairContext>(options => options.UseSqlServer("Data Source=sql5106.site4now.net;User ID=db_a9ae8d_dbanimalre_admin;Password=a12345678;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;"));
+        services.AddDbContext<AnimalRepairContext>(options => options.UseSqlServer(connection));
+
+
         services.AddControllersWithViews();
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options =>
