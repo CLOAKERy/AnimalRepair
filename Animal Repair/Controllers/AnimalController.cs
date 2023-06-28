@@ -95,6 +95,24 @@ namespace Animal_Repair.Controllers
             };
             return View(animalCreate);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit(AnimalCreateViewModel model, IFormFile imageFile)
+        {
+            WorkingWithImg img = new();
+            string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+            string imagePath = await img.ProcessImage(imageFile, uploadFolder);
+            AnimalDTO animalCreate = new()
+            {
+                IdKindOfAnimal = model.IdKindOfAnimal,
+                IdGender = model.IdGender,
+                DateOfBirth = model.DateOfBirth,
+                Description = model.Description,
+                Picture = imagePath
+            };
+            await animalService.UpdateAnimal(animalCreate);
+            return RedirectToAction("Index", "Animal");
+        }
     }
 
 
