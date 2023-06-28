@@ -60,6 +60,7 @@ namespace Animal_Repair.Controllers
             };
             return View(animalCreate);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(AnimalCreateViewModel model, IFormFile imageFile)
         {
@@ -76,7 +77,23 @@ namespace Animal_Repair.Controllers
             };
             await animalService.AddAnimal(animalCreate);
             return RedirectToAction("Index", "Animal");
+        }
 
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
+        {
+            AnimalDTO animal = await animalService.GetAnimalById(id);
+            AnimalCreateViewModel animalCreate = new()
+            {
+                IdKindOfAnimal = animal.IdKindOfAnimal,
+                IdGender = animal.IdGender,
+                DateOfBirth = animal.DateOfBirth,
+                Description = animal.Description,
+                Picture = animal.Picture,
+                KindOfAnimals = await kindOfAnimalService.GetAllKindOfAnimalsAsync(),
+                KindOfGenders = await kindOfGenderService.GetAllKindOfGendersAsync()
+            };
+            return View(animalCreate);
         }
     }
 
