@@ -16,15 +16,6 @@ namespace AnimalRepair.DAL.Repositories
         {
 
         }
-        public async Task GetByCategoryAsync(int idkindOfAnimal)
-        {
-            var item = await _dbContext.Set<Animal>().FindAsync(idkindOfAnimal);
-            if (item != null)
-            {
-                _dbContext.Set<Animal>().Remove(item);
-                await _dbContext.SaveChangesAsync();
-            }
-        }
         public new async Task<IEnumerable<Animal>> GetAllAsync(params Expression<Func<Animal, object>>[] includes)
         {
             IQueryable<Animal> query = _dbContext.Set<Animal>();
@@ -44,7 +35,11 @@ namespace AnimalRepair.DAL.Repositories
                 .ToListAsync();
         }
 
-
-
+        public async Task<IEnumerable<Animal>> GetByCategoryAsync(int idkindOfAnimal)
+        {
+            return await _dbContext.Set<Animal>()
+                .Where(a => a.IdKindOfAnimal == idkindOfAnimal)
+                .ToListAsync();
+        }
     }
 }

@@ -73,6 +73,12 @@ namespace AnimalRepair.BLL.Services
             return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
         }
 
+        public async Task<IEnumerable<ProductDTO>> GetProductsByCategory(int IdCategory)
+        {
+            IEnumerable<Product> products = await _unitOfWork.Products.GetProductsByCategoryAsync(IdCategory);
+            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+        }
+
         public async Task RemoveProduct(int productId)
         {
             Product product = await _unitOfWork.Products.GetAsync(productId);

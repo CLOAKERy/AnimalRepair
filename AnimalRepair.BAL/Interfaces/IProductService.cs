@@ -13,7 +13,7 @@ namespace AnimalRepair.BLL.Interfaces
         Task UpdateProduct(ProductDTO productDto);
         Task RemoveProduct(int productId);
         Task<ProductDTO> GetProductById(int productId);
-        Task<IEnumerable<ProductDTO>> GetProductsByCategory(string category);
+        Task<IEnumerable<ProductDTO>> GetProductsByCategory(int IdCategory);
         Task<IEnumerable<ProductDTO>> GetAllProductssAsync();
     }
 }

@@ -11,5 +11,6 @@ namespace AnimalRepair.DAL.Interfaces
     public interface IProductRepository<Product> : IRepository<Product> where Product : class
     {
         Task<IEnumerable<Product>> GetAllAsync(params Expression<Func<Product, object>>[] includes);
+        Task<IEnumerable<Product>> GetProductsByCategoryAsync(int idKindOfProduct);
     }
 }
