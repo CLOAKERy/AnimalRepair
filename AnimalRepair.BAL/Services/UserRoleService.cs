@@ -72,14 +72,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateUserRole(UserRoleDTO UserRoleDto)
         {
-            // Поиск роли по идентификатору
-            UserRole userRole = await _unitOfWork.UserRoles.GetAsync(UserRoleDto.Id);
-            if (userRole == null)
-                throw new ValidationException("Животное не найдено", "");
-
-            // Обновление данных роли
-            userRole.Role = UserRoleDto.Role;
-
             // Маппинг 
             UserRole updatedUserRole = _mapper.Map<UserRoleDTO, UserRole>(UserRoleDto);
 

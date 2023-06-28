@@ -84,18 +84,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateUserProfile(CustomerDTO customerDto)
         {
-            // Поиск логина и пароля по идентификатору
-            Customer customer = await _unitOfWork.Customers.GetAsync(customerDto.Id);
-            if (customer == null)
-                throw new ValidationException("Пользователь не найден", "");
-
-            // Обновление данных логина и пароля
-            customer.Adress = customerDto.Adress;
-            customer.IdLogin = customerDto.IdLogin;
-            customer.PhoneNumber = customerDto.PhoneNumber;
-            customer.Name = customerDto.Name;
-            customer.IdRole = customerDto.IdRole;
-
             // Маппинг 
             Customer updatedCustomer = _mapper.Map<CustomerDTO, Customer>(customerDto);
 

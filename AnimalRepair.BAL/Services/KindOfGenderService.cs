@@ -36,12 +36,6 @@ namespace AnimalRepair.BLL.Services
         }
         public async Task UpdateKindOfGender(KindOfGenderDTO kindOfGenderDto)
         {
-            KindOfGender kindOfGender = await _unitOfWork.KindOfGenders.GetAsync(kindOfGenderDto.Id);
-            if (kindOfGender == null)
-                throw new ValidationException("Пол по названию не найден", "");
-
-            kindOfGender.Gender = kindOfGenderDto.Gender;
-
             KindOfGender updatedGender = _mapper.Map<KindOfGenderDTO, KindOfGender>(kindOfGenderDto, kindOfGender);
 
             await _unitOfWork.KindOfGenders.UpdateAsync(updatedGender);

@@ -48,19 +48,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateAnimal(AnimalDTO animalDto)
         {
-            // Поиск животного по идентификатору
-            Animal animal = await _unitOfWork.Animals.GetAsync(animalDto.Id);
-            if (animal == null)
-                throw new ValidationException("Животное не найдено", "");
-
-            // Обновление данных животного
-            animal.IdKindOfAnimal = animalDto.IdKindOfAnimal;
-            animal.IdGender = animalDto.IdGender;
-            animal.DateOfBirth = animalDto.DateOfBirth;
-            animal.Description = animalDto.Description;
-            animal.Picture = animalDto.Picture;
-            
-
             // Маппинг AnimalDTO в Animal
             Animal updatedAnimal = _mapper.Map<AnimalDTO, Animal>(animalDto);
 
