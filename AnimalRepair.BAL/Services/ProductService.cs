@@ -46,7 +46,7 @@ namespace AnimalRepair.BLL.Services
             _unitOfWork.Dispose();
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetAllProductssAsync()
+        public async Task<IEnumerable<ProductDTO>> GetAllProductsAsync()
         {
             var animals = await _unitOfWork.Products.GetAllAsync(a => a.IdKindOfProductNavigation);
 

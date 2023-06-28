@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Interfaces
 {
-    internal interface IKindOfProductService
+    public interface IKindOfProductService
     {
         void AddKindOfProduct(KindOfProductDTO kindOfProductDto);
         Task<IEnumerable<KindOfProductDTO>> GetAllKindOfProductsAsync();
