@@ -19,7 +19,7 @@
 <p>
     <a a class="nav-link text-dark" asp-action="Create" asp-controller="Animal">Create New</a>
 </p>
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -37,15 +37,33 @@
             <th>
                 <p>Тип</p>
             </th>
-@*            <th>
+            <th>
                 @Html.DisplayNameFor(model => model.IdOrderNavigation)
-            </th>*@
+            </th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>*@
+    <div class="cards">
 @foreach (var item in Model.Animals) {
-        <tr>
+        <div class="cardItem">
+            <img class="Cardimg" src="@Url.Content(item.Picture)" height="100" width="200" alt="not found" />
+            <p>
+               @Html.DisplayFor(modelItem => item.KindOfAnimalName)
+            </p>
+            <p>
+               @Html.DisplayFor(modelItem => item.GenderName)
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </p>
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" asp-route-picture="@item.Picture">Delete</a>
+        </div>
+        }
+    </div>
+ @*       <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>
@@ -61,9 +79,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.KindOfAnimalName)
             </td>
-@*            <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IdOrderNavigation.Date)
-            </td>*@
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
@@ -72,4 +90,4 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@

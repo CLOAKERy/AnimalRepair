@@ -114,6 +114,16 @@ namespace Animal_Repair.Controllers
             await animalService.UpdateAnimal(animalEdit);
             return RedirectToAction("Index", "Animal");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(AnimalCreateViewModel model)
+        {
+            WorkingWithImg img = new();
+            string uploadFolder = _hostingEnvironment.WebRootPath + model.Picture;
+            img.DeleteImg(uploadFolder);
+            await animalService.RemoveAnimal(model.Id);
+            return RedirectToAction("Index", "Animal");
+        }
     }
 
 
