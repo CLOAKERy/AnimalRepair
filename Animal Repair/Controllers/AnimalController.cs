@@ -102,15 +102,16 @@ namespace Animal_Repair.Controllers
             WorkingWithImg img = new();
             string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
             string imagePath = await img.ProcessImage(imageFile, uploadFolder);
-            AnimalDTO animalCreate = new()
+            AnimalDTO animalEdit = new()
             {
+                Id = model.Id,
                 IdKindOfAnimal = model.IdKindOfAnimal,
                 IdGender = model.IdGender,
                 DateOfBirth = model.DateOfBirth,
                 Description = model.Description,
                 Picture = imagePath
             };
-            await animalService.UpdateAnimal(animalCreate);
+            await animalService.UpdateAnimal(animalEdit);
             return RedirectToAction("Index", "Animal");
         }
     }

@@ -58,6 +58,8 @@ namespace AnimalRepair.BLL.Services
             animal.IdGender = animalDto.IdGender;
             animal.DateOfBirth = animalDto.DateOfBirth;
             animal.Description = animalDto.Description;
+            animal.Picture = animalDto.Picture;
+            
 
             // Маппинг AnimalDTO в Animal
             Animal updatedAnimal = _mapper.Map<AnimalDTO, Animal>(animalDto);
