@@ -124,6 +124,24 @@ namespace Animal_Repair.Controllers
             await animalService.RemoveAnimal(model.Id);
             return RedirectToAction("Index", "Animal");
         }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(AnimalCreateViewModel model)
+        {
+            AnimalDTO animal = await animalService.GetAnimalById(model.Id);
+            AnimalCreateViewModel animalDetails = new()
+            {
+                Id = animal.Id,
+                GenderName = model.GenderName, 
+                KindOfAnimalName = model.KindOfAnimalName, 
+                IdKindOfAnimal = animal.IdKindOfAnimal,
+                IdGender = animal.IdGender,
+                DateOfBirth = animal.DateOfBirth,
+                Description = animal.Description,
+                Picture = animal.Picture,
+            };
+            return View(animalDetails);
+        }
     }
 
 

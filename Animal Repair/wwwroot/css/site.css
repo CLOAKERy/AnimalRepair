@@ -53,3 +53,19 @@ body {
     border: 1px solid black;
     margin: 2px
 }
+
+.detailsGridContainer {
+    display: grid;
+    /* Три колонки */
+    grid-template-columns: auto auto;
+    /* Два ряда */
+    grid-template-rows: auto auto;
+    /* Автоматическое размещение в ряд */
+    grid-auto-flow: row;
+    /* Отступы между ячейками */
+    gap: 20px;
+}
+
+.item3 {
+    grid-column: span 2;
+}
