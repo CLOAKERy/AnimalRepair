@@ -15,6 +15,7 @@ using AnimalRepair.DAL.Interfaces;
 using AnimalRepair.DAL.Repositories;
 using AnimalRepair.BLL.DTO;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Animal_Repair.Middleware;
 
 public class Startup
 {
@@ -74,6 +75,7 @@ public class Startup
     {
         // Конфигурация HTTP-конвейера
 
+        app.UseMiddleware<ErrorHandlingMiddleware>();
         app.UseRouting();
         app.UseStaticFiles();
         app.UseDeveloperExceptionPage();
