@@ -10,6 +10,7 @@ namespace AnimalRepair.DAL.Interfaces
     public interface IAnimalRepository<Animal> : IRepository<Animal> where Animal : class
     {
         Task<IEnumerable<Animal>> GetAllAsync(params Expression<Func<Animal, object>>[] includes);
-        Task GetByCategoryAsync(int idkindOfAnimal);
+        Task<IEnumerable<Animal>> GetByCategoryAsync(int idkindOfAnimal);
+        Task<IEnumerable<Animal>> GetAnimalsByGenderAsync(int idGender);
     }
 }

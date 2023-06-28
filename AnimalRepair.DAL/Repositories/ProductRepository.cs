@@ -28,5 +28,12 @@ namespace AnimalRepair.DAL.Repositories
 
             return await query.ToListAsync();
         }
+
+        public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int idKindOfProduct)
+        {
+            return await _dbContext.Set<Product>()
+                .Where(a => a.IdKindOfProduct == idKindOfProduct)
+                .ToListAsync();
+        }
     }
 }
