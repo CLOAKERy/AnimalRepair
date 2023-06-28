@@ -96,7 +96,7 @@ namespace Animal_Repair.Controllers
             return View(animalCreate);
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Edit(AnimalCreateViewModel model, IFormFile imageFile)
         {
             WorkingWithImg img = new();
