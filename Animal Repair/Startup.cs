@@ -48,6 +48,11 @@ public class Startup
         var accountModule = new AccountModule();
         accountModule.ConfigureServices(services);
 
+        var kindOfGenderModule = new KindOfGenderModule();
+        kindOfGenderModule.ConfigureServices(services);
+        var kindOfAnimalModule = new KindOfAnimalModule();
+        kindOfAnimalModule.ConfigureServices(services);
+
         services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
         services.AddAutoMapper(typeof(AnimalMapper));

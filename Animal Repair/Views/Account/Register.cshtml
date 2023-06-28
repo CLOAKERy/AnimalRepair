@@ -1,4 +1,4 @@
-﻿@model AnimalRepair.BLL.DTO.LoginDTO
+﻿@model Animal_Repair.Models.RegisterViewModel
 
 @{
     Layout = "_Layout";
@@ -27,13 +27,13 @@
                                     <input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
                                 </div>
                                 <span class="text-black" style="font-size: small; font-family:'Comic Sans MS'">Пароль должен быть длиной больше 6 символов и иметь только латинские символы</span>
-                                @*<div class="form-group">
+                                <div class="form-group">
                                     <input autocomplete="new-password" asp-for="PasswordConfirm" placeholder="Подтвердите пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
-                                </div>*@
-                                <div>
-                                    <h2 class="paragraphHome text-center"><a asp-controller="Account" target="_blank" asp-action="Login" style="color:deepskyblue;">Вход</a></h2>
                                 </div>
-                                <button class="btn btn-success btn-lg float-right" type="submit">Отправить</button>
+                                <div>
+                                    <button class="btn btn-success btn-lg float-right" type="submit">Отправить</button>
+                                </div>
+
                             </form>
                         </div>
                     </div>

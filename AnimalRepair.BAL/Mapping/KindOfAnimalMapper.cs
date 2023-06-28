@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Mapping
 {
-    public class KindOfAnimalMapper : EntityMapper<Customer, CustomerDTO>
+    public class KindOfAnimalMapper : EntityMapper<KindOfAnimal, KindOfAnimalDTO>
     {
     }
 }

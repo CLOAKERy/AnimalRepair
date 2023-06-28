@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Interfaces
 {
-    internal interface IKindOfGenderService
+    public interface IKindOfGenderService
     {
         void AddKindOfGender(KindOfGenderDTO kindOfGenderDto);
         Task UpdateKindOfGender(KindOfGenderDTO kindOfGenderDto);

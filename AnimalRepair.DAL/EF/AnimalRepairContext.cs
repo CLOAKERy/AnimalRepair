@@ -70,9 +70,9 @@ public partial class AnimalRepairContext : DbContext
         {
             entity.ToTable("Animal");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("ID");
+            entity.Property(e => e.Id).HasColumnName("ID");
+
+
             entity.Property(e => e.DateOfBirth)
                 .HasMaxLength(15)
                 .IsFixedLength();
@@ -143,9 +143,8 @@ public partial class AnimalRepairContext : DbContext
         {
             entity.ToTable("KindOfGender");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("ID");
+            entity.Property(e => e.Id).HasColumnName("ID");
+                
             entity.Property(e => e.Gender)
                 .HasMaxLength(25)
                 .IsFixedLength();
@@ -155,9 +154,9 @@ public partial class AnimalRepairContext : DbContext
         {
             entity.ToTable("KindOfProduct");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("ID");
+            entity.Property(e => e.Id).HasColumnName("ID");
+
+
             entity.Property(e => e.Name)
                 .HasMaxLength(25)
                 .IsFixedLength();
@@ -220,9 +219,9 @@ public partial class AnimalRepairContext : DbContext
         {
             entity.ToTable("Product");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("ID");
+            entity.Property(e => e.Id).HasColumnName("ID");
+
+
             entity.Property(e => e.Description)
                 .HasMaxLength(500)
                 .IsFixedLength();

@@ -21,11 +21,16 @@ namespace Animal_Repair.Controllers
         public IActionResult Register() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Register(LoginDTO model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _accountService.Register(model);
+                LoginDTO loginDTO = new()
+                {
+                    Login1 = model.Login1,
+                    Password = model.Password
+                };
+                var response = await _accountService.Register(loginDTO);
                 if (response is ClaimsIdentity)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -42,11 +47,16 @@ namespace Animal_Repair.Controllers
         public IActionResult Login() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDTO model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = await _accountService.Login(model);
+                LoginDTO loginDTO = new()
+                {
+                    Login1 = model.Login1,
+                    Password = model.Password
+                };
+                var response = await _accountService.Login(loginDTO);
                 if (response is ClaimsIdentity)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,

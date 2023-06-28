@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Interfaces
 {
-    internal interface IKindOfAnimalService
+    public interface IKindOfAnimalService
     {
         void AddKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto);
         Task UpdateKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto);

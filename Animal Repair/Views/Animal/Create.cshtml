@@ -1,8 +1,12 @@
-﻿@model Animal_Repair.Animal
+﻿@using AnimalRepair.BLL.DTO;
+@model Animal_Repair.Models.AnimalCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
+
 }
+
+
 
 <h1>Create</h1>
 
@@ -10,15 +14,25 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="IdKindOfAnimal" class="control-label"></label>
-                <select asp-for="IdKindOfAnimal" class ="form-control" asp-items="ViewBag.IdKindOfAnimal"></select>
+                <select asp-for="IdKindOfAnimal" class ="form-control">
+                    @foreach (KindOfAnimalDTO kind in Model.KindOfAnimals)
+                    {
+                        <option value="@kind.Id">@kind.Name</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="IdGender" class="control-label"></label>
-                <select asp-for="IdGender" class ="form-control" asp-items="ViewBag.IdGender"></select>
+                <select asp-for="IdGender" class="form-control">
+                    @foreach (KindOfGenderDTO kind in Model.KindOfGenders)
+                    {
+                        <option value="@kind.Id">@kind.Gender</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="DateOfBirth" class="control-label"></label>
@@ -32,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Picture" class="control-label"></label>
-                <input asp-for="Picture" class="form-control" />
+                <input type="file" name="imageFile" accept="image/*" class="form-control" />
                 <span asp-validation-for="Picture" class="text-danger"></span>
             </div>
             <div class="form-group">
