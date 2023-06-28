@@ -36,7 +36,7 @@ namespace AnimalRepair.BLL.Services
         }
         public async Task UpdateKindOfGender(KindOfGenderDTO kindOfGenderDto)
         {
-            KindOfGender updatedGender = _mapper.Map<KindOfGenderDTO, KindOfGender>(kindOfGenderDto, kindOfGender);
+            KindOfGender updatedGender = _mapper.Map<KindOfGenderDTO, KindOfGender>(kindOfGenderDto);
 
             await _unitOfWork.KindOfGenders.UpdateAsync(updatedGender);
             _unitOfWork.Save();

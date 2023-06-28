@@ -35,7 +35,7 @@ namespace AnimalRepair.BLL.Services
         }
         public async Task UpdateKindOfProduct(KindOfProductDTO kindOfProductDto)
         {
-            KindOfProduct updatedProduct = _mapper.Map<KindOfProductDTO, KindOfProduct>(kindOfProductDto, kindOfProduct);
+            KindOfProduct updatedProduct = _mapper.Map<KindOfProductDTO, KindOfProduct>(kindOfProductDto);
 
             await _unitOfWork.KindOfProducts.UpdateAsync(updatedProduct);
             _unitOfWork.Save();
