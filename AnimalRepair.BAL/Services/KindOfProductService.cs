@@ -35,13 +35,7 @@ namespace AnimalRepair.BLL.Services
         }
         public async Task UpdateKindOfProduct(KindOfProductDTO kindOfProductDto)
         {
-            KindOfProduct kindOfProduct = await _unitOfWork.KindOfProducts.GetAsync(kindOfProductDto.Id);
-            if (kindOfProduct == null)
-                throw new ValidationException("Категория товара не найдена", "");
-
-            kindOfProduct.Name = kindOfProductDto.Name;
-
-            KindOfProduct updatedProduct = _mapper.Map<KindOfProductDTO, KindOfProduct>(kindOfProductDto, kindOfProduct);
+            KindOfProduct updatedProduct = _mapper.Map<KindOfProductDTO, KindOfProduct>(kindOfProductDto);
 
             await _unitOfWork.KindOfProducts.UpdateAsync(updatedProduct);
             _unitOfWork.Save();
