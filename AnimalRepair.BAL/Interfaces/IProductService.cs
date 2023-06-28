@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Interfaces
 {
-    internal interface IProductService : IDisposable
+    public interface IProductService : IDisposable
     {
         Task AddProduct(ProductDTO productDto);
         Task UpdateProduct(ProductDTO productDto);
         Task RemoveProduct(int productId);
         Task<ProductDTO> GetProductById(int productId);
         Task<IEnumerable<ProductDTO>> GetProductsByCategory(int IdCategory);
-        Task<IEnumerable<ProductDTO>> GetAllProductssAsync();
+        Task<IEnumerable<ProductDTO>> GetAllProductsAsync();
     }
 }
