@@ -10,8 +10,10 @@ namespace AnimalRepair.BLL.Interfaces
 {
     public interface IKindOfGenderService
     {
-        void AddKindOfGender(KindOfGenderDTO kindOfGenderDto);
+        Task AddKindOfGender(KindOfGenderDTO kindOfGenderDto);
         Task UpdateKindOfGender(KindOfGenderDTO kindOfGenderDto);
+        Task RemoveKindOfGender(int kindOfGenddrId);
+        Task<KindOfGenderDTO> GetKindOfGenderById(int kindOfGenderId);
         Task<IEnumerable<KindOfGenderDTO>> GetAllKindOfGendersAsync();
 
 

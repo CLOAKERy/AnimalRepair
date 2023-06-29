@@ -22,7 +22,7 @@ namespace AnimalRepair.BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public void AddKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto)
+        public async Task AddKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto)
         {
             // Валидация данных категории
             if (string.IsNullOrEmpty(kindOfAnimalDto.Name.ToString()))

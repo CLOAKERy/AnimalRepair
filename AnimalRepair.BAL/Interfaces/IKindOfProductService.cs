@@ -10,7 +10,7 @@ namespace AnimalRepair.BLL.Interfaces
 {
     public interface IKindOfProductService
     {
-        void AddKindOfProduct(KindOfProductDTO kindOfProductDto);
+        Task AddKindOfProduct(KindOfProductDTO kindOfProductDto);
         Task<IEnumerable<KindOfProductDTO>> GetAllKindOfProductsAsync();
         Task<KindOfProductDTO> GetKindOfProductById(int kindOfProductId);
         Task UpdateKindOfProduct(KindOfProductDTO kindOfProduct);
