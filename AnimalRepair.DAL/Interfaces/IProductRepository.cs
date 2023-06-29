@@ -12,5 +12,6 @@ namespace AnimalRepair.DAL.Interfaces
     {
         Task<IEnumerable<Product>> GetAllAsync(params Expression<Func<Product, object>>[] includes);
         Task<IEnumerable<Product>> GetProductsByCategoryAsync(int idKindOfProduct);
+        Task<Product> GetAsync(int id, params Expression<Func<Product, object>>[] includes);
     }
 }

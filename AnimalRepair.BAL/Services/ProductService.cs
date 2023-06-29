@@ -56,14 +56,16 @@ namespace AnimalRepair.BLL.Services
 
         public async Task<ProductDTO> GetProductById(int productId)
         {
-            // Поиск животного по идентификатору
-            Product product = await _unitOfWork.Products.GetAsync(productId);
+            Product product = await _unitOfWork.Products.GetAsync(
+                productId,
+                a => a.IdKindOfProductNavigation
+            );
+
             if (product == null)
-                throw new ValidationException("Животное не найдено", "");
+                throw new ValidationException("Продукт не найден", "");
 
-            ProductDTO productDto = _mapper.Map<Product, ProductDTO>(product);
-
-            return productDto;
+            ProductDTO productMapped = _mapper.Map<Product, ProductDTO>(product);
+            return productMapped;
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProductsByCategoryAsync(int IdCategory)

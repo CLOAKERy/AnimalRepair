@@ -69,7 +69,41 @@ namespace Animal_Repair.Controllers
             };
             await productService.AddProduct(productCreate);
             return RedirectToAction("Index", "Product");
+        }
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
+        {
+            ProductDTO animal = await productService.GetProductById(id);
+            ProductCreateViewModel productCreate = new()
+            {
+                Id = animal.Id,
+                IdKindOfProduct = animal.IdKindOfProduct,
+                Name = animal.Name,
+                Price = animal.Price,
+                Description = animal.Description,
+                Picture = animal.Picture,
+                KindOfProducts = await kindOfProductService.GetAllKindOfProductsAsync()
+            };
+            return View(productCreate);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProductCreateViewModel model, IFormFile imageFile)
+        {
+            WorkingWithImg img = new();
+            string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+            string imagePath = await img.ProcessImage(imageFile, uploadFolder);
+            ProductDTO productEdit = new()
+            {
+                Id = model.Id,
+                IdKindOfProduct = model.IdKindOfProduct,
+                Name = model.Name,
+                Price = model.Price,
+                Description = model.Description,
+                Picture = imagePath
+            };
+            await productService.UpdateProduct(productEdit);
+            return RedirectToAction("Index", "Product");
         }
     }
 
