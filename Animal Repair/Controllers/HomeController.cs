@@ -27,15 +27,11 @@ namespace Animal_Repair.Controllers
         public async Task<ActionResult> IndexAsync()
         {
             IEnumerable<AnimalDTO> AnimalDtos = await animalService.GetAllAnimalsAsync();
-            /*var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AnimalDTO, AnimalViewModel>()).CreateMapper();
-            var animals = mapper.Map<IEnumerable<AnimalDTO>, List<AnimalViewModel>>(AnimalDtos);*/
             return View(AnimalDtos);
         }
         public async Task<ActionResult> Animal()
         {
             IEnumerable<AnimalDTO> AnimalDtos = await animalService.GetAllAnimalsAsync();
-            /*var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AnimalDTO, AnimalViewModel>()).CreateMapper();
-            var animals = mapper.Map<IEnumerable<AnimalDTO>, List<AnimalViewModel>>(AnimalDtos);*/
             return View(AnimalDtos);
         }
     }

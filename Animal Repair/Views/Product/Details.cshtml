@@ -1,4 +1,4 @@
-﻿@model Animal_Repair.Models.AnimalCreateViewModel
+﻿@model Animal_Repair.Models.ProductCreateViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -12,13 +12,10 @@
   </div>
     <div>
         <H2>
-            -@Html.DisplayFor(model => model.KindOfAnimalName)
+            -@Html.DisplayFor(model => model.Name)
         </H2>
         <H2>
-            -@Html.DisplayFor(model => model.GenderName)
-        </H2>
-        <H2>
-            -Дата рождения: @Html.DisplayFor(model => model.DateOfBirth)
+            -Цена: @Html.DisplayFor(model => model.Price)
         </H2>
     </div>
     <div class="item3">
@@ -29,7 +26,7 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-area="" asp-controller="Cart" asp-action="AddAnimalToCart"
-       asp-route-animalId="@Url.Content(Model.Id.ToString())">В корзину</a> |
+    <a asp-area="" asp-controller="Cart" asp-action="AddProductToCart"
+       asp-route-productId="@Url.Content(Model.Id.ToString())">В корзину</a> |
     <a asp-action="Index">Back to List</a>
 </div>

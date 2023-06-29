@@ -31,7 +31,9 @@ public class Startup
         // получаем строку подключения из файла конфигурации
         string connection = Configuration.GetConnectionString("DefaultConnection");
         // добавляем контекст AppDBContext в качестве сервиса в приложение
-        services.AddDbContext<AnimalRepairContext>(options => options.UseSqlServer("Data Source=sql5106.site4now.net;User ID=db_a9ae8d_dbanimalre_admin;Password=a12345678;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;"));
+        services.AddDbContext<AnimalRepairContext>(options => options.UseSqlServer(connection));
+
+
         services.AddControllersWithViews();
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options =>
@@ -40,11 +42,20 @@ public class Startup
             options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
         });
 
+        services.AddSession(options =>
+        {
+            options.Cookie.Name = "YourSessionCookieName"; // Установите имя cookie сеанса
+            options.IdleTimeout = TimeSpan.FromMinutes(30); // Установите время простоя сеанса
+        });
+
         var customerModule = new CustomerModule();
         customerModule.ConfigureServices(services);
 
         var animalModule = new AnimalModule();
         animalModule.ConfigureServices(services);
+
+        var productModule = new ProductModule();
+        productModule.ConfigureServices(services);
 
         var accountModule = new AccountModule();
         accountModule.ConfigureServices(services);
@@ -53,6 +64,14 @@ public class Startup
         kindOfGenderModule.ConfigureServices(services);
         var kindOfAnimalModule = new KindOfAnimalModule();
         kindOfAnimalModule.ConfigureServices(services);
+
+        var ProductModule = new ProductModule();
+        ProductModule.ConfigureServices(services);
+
+        var kindOfProductModule = new KindOfProductModule();
+        kindOfProductModule.ConfigureServices(services);
+
+
 
         services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
@@ -80,6 +99,7 @@ public class Startup
         app.UseRouting();
         app.UseStaticFiles();
         //app.UseDeveloperExceptionPage();
+        app.UseSession();
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>

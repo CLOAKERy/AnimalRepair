@@ -35,5 +35,17 @@ namespace AnimalRepair.DAL.Repositories
                 .Where(a => a.IdKindOfProduct == idKindOfProduct)
                 .ToListAsync();
         }
+        public async Task<Product> GetAsync(int id, params Expression<Func<Product, object>>[] includes)
+        {
+            IQueryable<Product> query = _dbContext.Set<Product>();
+
+            // Включение связанных данных с помощью метода Include
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.FirstOrDefaultAsync(a => a.Id == id);
+        }
     }
 }

@@ -68,15 +68,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateOrderProduct(OrderProductDTO orderProductDto)
         {
-            OrderProduct orderProduct = await _unitOfWork.OrderProducts.GetAsync(orderProductDto.IdOrder);
-            if (orderProduct == null)
-                throw new ValidationException("Заказ не найден", "");
-
-
-            orderProduct.IdOrder = orderProductDto.IdOrder;
-            orderProduct.IdProduct = orderProductDto.IdProduct;
-
-
             OrderProduct updatedOrderProduct = _mapper.Map<OrderProductDTO, OrderProduct>(orderProductDto);
 
             await _unitOfWork.OrderProducts.UpdateAsync(updatedOrderProduct);

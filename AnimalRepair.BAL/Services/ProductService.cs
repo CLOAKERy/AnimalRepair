@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Services
 {
-    internal class ProductService : IProductService
+    public class ProductService : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -46,7 +46,7 @@ namespace AnimalRepair.BLL.Services
             _unitOfWork.Dispose();
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetAllProductssAsync()
+        public async Task<IEnumerable<ProductDTO>> GetAllProductsAsync()
         {
             var animals = await _unitOfWork.Products.GetAllAsync(a => a.IdKindOfProductNavigation);
 
@@ -56,24 +56,19 @@ namespace AnimalRepair.BLL.Services
 
         public async Task<ProductDTO> GetProductById(int productId)
         {
-            // Поиск животного по идентификатору
-            Product product = await _unitOfWork.Products.GetAsync(productId);
+            Product product = await _unitOfWork.Products.GetAsync(
+                productId,
+                a => a.IdKindOfProductNavigation
+            );
+
             if (product == null)
-                throw new ValidationException("Животное не найдено", "");
+                throw new ValidationException("Продукт не найден", "");
 
-            ProductDTO productDto = _mapper.Map<Product, ProductDTO>(product);
-
-            return productDto;
+            ProductDTO productMapped = _mapper.Map<Product, ProductDTO>(product);
+            return productMapped;
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetProductsByCategory(string category)
-        {
-            // Получение списка животных по категории
-            IEnumerable<Product> products = await _unitOfWork.Products.GetAllAsync();
-            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
-        }
-
-        public async Task<IEnumerable<ProductDTO>> GetProductsByCategory(int IdCategory)
+        public async Task<IEnumerable<ProductDTO>> GetProductsByCategoryAsync(int IdCategory)
         {
             IEnumerable<Product> products = await _unitOfWork.Products.GetProductsByCategoryAsync(IdCategory);
             return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
@@ -91,19 +86,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateProduct(ProductDTO productDto)
         {
-            // Поиск животного по идентификатору
-            Product product = await _unitOfWork.Products.GetAsync(productDto.Id);
-            if (product == null)
-                throw new ValidationException("Животное не найдено", "");
-
-            // Обновление данных животного
-            product.IdKindOfProduct = productDto.IdKindOfProduct;
-            product.Price = productDto.Price;
-            product.Name = productDto.Name;
-            product.Description = productDto.Description;
-            product.Picture = productDto.Picture;
-            // Обновление других свойств животного
-
             // Маппинг productDTO в product
             Product updatedproduct = _mapper.Map<ProductDTO, Product>(productDto);
 

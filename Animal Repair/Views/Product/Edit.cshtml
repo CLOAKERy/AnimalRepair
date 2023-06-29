@@ -1,5 +1,5 @@
 ﻿@using AnimalRepair.BLL.DTO;
-@model Animal_Repair.Models.AnimalCreateViewModel
+@model Animal_Repair.Models.ProductCreateViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -15,35 +15,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="IdKindOfAnimal" class="control-label"></label>
-                <select asp-for="IdKindOfAnimal" class="form-control" asp-items="ViewBag.IdKindOfAnimal">
-                    @foreach (KindOfAnimalDTO kind in Model.KindOfAnimals)
+                <label asp-for="IdKindOfProduct" class="control-label"></label>
+                <select asp-for="IdKindOfProduct" class="form-control" asp-items="ViewBag.IdKindOfAnimal">
+                    @foreach (KindOfProductDTO kind in Model.KindOfProducts)
                     {
                         <option value="@kind.Id">@kind.Name</option>
                     }
                 </select>
-                <span asp-validation-for="IdKindOfAnimal" class="text-danger"></span>
+                <span asp-validation-for="IdKindOfProduct" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdOrder" class="control-label"></label>
-                <select asp-for="IdOrder" class="form-control" asp-items="ViewBag.IdOrder">
-                </select>
-                <span asp-validation-for="IdOrder" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdGender" class="control-label"></label>
-                <select asp-for="IdGender" class="form-control" asp-items="ViewBag.IdGender">
-                    @foreach (KindOfGenderDTO kind in Model.KindOfGenders)
-                    {
-                        <option value="@kind.Id">@kind.Gender</option>
-                    }
-                </select>
-                <span asp-validation-for="IdGender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

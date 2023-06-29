@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,17 +49,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateAnimal(AnimalDTO animalDto)
         {
-            // Поиск животного по идентификатору
-            Animal animal = await _unitOfWork.Animals.GetAsync(animalDto.Id);
-            if (animal == null)
-                throw new ValidationException("Животное не найдено", "");
-
-            // Обновление данных животного
-            animal.IdKindOfAnimal = animalDto.IdKindOfAnimal;
-            animal.IdGender = animalDto.IdGender;
-            animal.DateOfBirth = animalDto.DateOfBirth;
-            animal.Description = animalDto.Description;
-
             // Маппинг AnimalDTO в Animal
             Animal updatedAnimal = _mapper.Map<AnimalDTO, Animal>(animalDto);
 
@@ -79,20 +69,20 @@ namespace AnimalRepair.BLL.Services
 
         public async Task<AnimalDTO> GetAnimalById(int animalId)
         {
-            // Поиск животного по идентификатору
-            Animal animal = await _unitOfWork.Animals.GetAsync(animalId);
-            if (animal == null)
-                throw new ValidationException("Животное не найдено", "");
+            Animal animal = await _unitOfWork.Animals.GetAsync(
+                animalId,
+                a => a.IdGenderNavigation,
+                a => a.IdKindOfAnimalNavigation
+            );
 
-            AnimalDTO animalDto = _mapper.Map<Animal, AnimalDTO>(animal);
-
-            return animalDto;
+            AnimalDTO animalMapped = _mapper.Map<Animal, AnimalDTO>(animal);
+            return animalMapped;
         }
 
         public async Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(int IdCategory)
         {
             // Получение списка животных по категории
-            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetAnimalsByGenderAsync(IdCategory);
+            IEnumerable<Animal> animals = await _unitOfWork.Animals.GetByCategoryAsync(IdCategory);
             return _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animals);
         }
 
