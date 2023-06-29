@@ -5,6 +5,6 @@ namespace Animal_Repair.Models
 {
     public class KindOfProductIndexModel : Controller
     {
-        public IEnumerable<KindOfProductDTO> kindOfProducts { get; set; }
+        public IEnumerable<KindOfProductDTO> KindOfProducts { get; set; }
     }
 }

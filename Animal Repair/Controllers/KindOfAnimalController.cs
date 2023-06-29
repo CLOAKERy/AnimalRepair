@@ -21,8 +21,13 @@ namespace Animal_Repair.Controllers
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
         }
-
-        [HttpGet]
+        public async Task<ActionResult> Index( )
+        {
+            KindOfAnimalIndexModel model = new();
+            model.KindOfAnimals = await kindOfAnimalService.GetAllKindOfAnimalsAsync();
+            return View(model);
+        }
+            [HttpGet]
         [HttpPost]
         public async Task<IActionResult> Create(KindOfAnimalCreateViewModel model)
         {

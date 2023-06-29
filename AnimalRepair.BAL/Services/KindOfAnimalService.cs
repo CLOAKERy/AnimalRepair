@@ -30,7 +30,7 @@ namespace AnimalRepair.BLL.Services
 
             var kindOfAnimal = _mapper.Map<KindOfAnimalDTO, KindOfAnimal>(kindOfAnimalDto);
             // Пример сохранения в базу данных с использованием UnitOfWork
-            _unitOfWork.KindOfAnimals.CreateAsync(kindOfAnimal);
+            await _unitOfWork.KindOfAnimals.CreateAsync(kindOfAnimal);
             _unitOfWork.Save();
         }
         public async Task UpdateKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto)
