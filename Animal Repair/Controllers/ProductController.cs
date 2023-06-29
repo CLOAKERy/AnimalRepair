@@ -73,15 +73,15 @@ namespace Animal_Repair.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            ProductDTO animal = await productService.GetProductById(id);
+            ProductDTO product = await productService.GetProductById(id);
             ProductCreateViewModel productCreate = new()
             {
-                Id = animal.Id,
-                IdKindOfProduct = animal.IdKindOfProduct,
-                Name = animal.Name,
-                Price = animal.Price,
-                Description = animal.Description,
-                Picture = animal.Picture,
+                Id = product.Id,
+                IdKindOfProduct = product.IdKindOfProduct,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                Picture = product.Picture,
                 KindOfProducts = await kindOfProductService.GetAllKindOfProductsAsync()
             };
             return View(productCreate);
@@ -104,6 +104,31 @@ namespace Animal_Repair.Controllers
             };
             await productService.UpdateProduct(productEdit);
             return RedirectToAction("Index", "Product");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(ProductCreateViewModel model)
+        {
+            WorkingWithImg img = new();
+            string uploadFolder = _hostingEnvironment.WebRootPath + model.Picture;
+            img.DeleteImg(uploadFolder);
+            await productService.RemoveProduct(model.Id);
+            return RedirectToAction("Index", "Product");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(ProductCreateViewModel model)
+        {
+            ProductDTO product = await productService.GetProductById(model.Id);
+            ProductCreateViewModel productDetails = new()
+            {
+                Id = product.Id,
+                IdKindOfProduct = product.IdKindOfProduct,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                Picture = product.Picture,
+            };
+            return View(productDetails);
         }
     }
 

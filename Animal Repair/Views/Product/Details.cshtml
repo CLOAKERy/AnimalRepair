@@ -1,0 +1,32 @@
+﻿@model Animal_Repair.Models.ProductCreateViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="detailsGridContainer">
+  <div>
+        <img class="Cardimg" src="@Url.Content(Model.Picture)" alt="not found" width="500" height="300" />
+  </div>
+    <div>
+        <H2>
+            -@Html.DisplayFor(model => model.Name)
+        </H2>
+        <H2>
+            -Цена: @Html.DisplayFor(model => model.Price)
+        </H2>
+    </div>
+    <div class="item3">
+        <p>
+            @Html.DisplayFor(model => model.Description)
+        </p>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-area="" asp-controller="Cart" asp-action="AddProductToCart"
+       asp-route-animalId="@Url.Content(Model.Id.ToString())">В корзину</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
