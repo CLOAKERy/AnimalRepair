@@ -47,6 +47,9 @@ public class Startup
         var animalModule = new AnimalModule();
         animalModule.ConfigureServices(services);
 
+        var productModule = new ProductModule();
+        productModule.ConfigureServices(services);
+
         var accountModule = new AccountModule();
         accountModule.ConfigureServices(services);
 
