@@ -16,7 +16,7 @@ namespace AnimalRepair.DAL.Repositories
         {
 
         }
-        public new async Task<IEnumerable<Animal>> GetAllAsync(params Expression<Func<Animal, object>>[] includes)
+        public async Task<IEnumerable<Animal>> GetAllAsync(params Expression<Func<Animal, object>>[] includes)
         {
             IQueryable<Animal> query = _dbContext.Set<Animal>();
 
@@ -40,6 +40,18 @@ namespace AnimalRepair.DAL.Repositories
             return await _dbContext.Set<Animal>()
                 .Where(a => a.IdKindOfAnimal == idkindOfAnimal)
                 .ToListAsync();
+        }
+        public async Task<Animal> GetAsync(int id, params Expression<Func<Animal, object>>[] includes)
+        {
+            IQueryable<Animal> query = _dbContext.Set<Animal>();
+
+            // Включение связанных данных с помощью метода Include
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.FirstOrDefaultAsync(a => a.Id == id);
         }
     }
 }
