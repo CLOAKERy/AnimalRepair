@@ -124,7 +124,7 @@ namespace AnimalRepair.BLL.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.IdRole.ToString())
             };
             return new ClaimsIdentity(claims, "ApplicationCookie",
