@@ -35,13 +35,7 @@ namespace AnimalRepair.BLL.Services
         }
         public async Task UpdateKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto)
         {
-            KindOfAnimal kindOfAnimal = await _unitOfWork.KindOfAnimals.GetAsync(kindOfAnimalDto.Id);
-            if (kindOfAnimal == null)
-                throw new ValidationException("Животное не найдено", "");
-
-            kindOfAnimal.Name = kindOfAnimalDto.Name;
-
-            KindOfAnimal updatedAnimal = _mapper.Map<KindOfAnimalDTO, KindOfAnimal>(kindOfAnimalDto, kindOfAnimal);
+            KindOfAnimal updatedAnimal = _mapper.Map<KindOfAnimalDTO, KindOfAnimal>(kindOfAnimalDto);
 
             await _unitOfWork.KindOfAnimals.UpdateAsync(updatedAnimal);
             _unitOfWork.Save();

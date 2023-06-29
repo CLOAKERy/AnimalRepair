@@ -75,15 +75,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateLogin(LoginDTO loginDto)
         {
-            // Поиск логина и пароля по идентификатору
-            Login login = await _unitOfWork.Logins.GetAsync(loginDto.Id);
-            if (login == null)
-                throw new ValidationException("Логин и пароль не найдены", "");
-
-            // Обновление данных логина и пароля
-            login.Login1 = loginDto.Login1;
-            login.Password = loginDto.Password;
-
             // Маппинг 
             Login updatedLogin = _mapper.Map<LoginDTO, Login>(loginDto);
 

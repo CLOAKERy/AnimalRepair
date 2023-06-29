@@ -29,3 +29,43 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.cards {
+    display: flex;
+    align-items: flex-start;
+    align-content: space-between;
+    justify-content: space-around;
+    
+    flex-wrap: wrap;
+    height: 100%;
+}
+.cardItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border: 3px solid black;
+    margin-left: 10px;
+    margin-top: 10px
+}
+.Cardimg {
+    border: 1px solid black;
+    margin: 2px
+}
+
+.detailsGridContainer {
+    display: grid;
+    /* Три колонки */
+    grid-template-columns: auto auto;
+    /* Два ряда */
+    grid-template-rows: auto auto;
+    /* Автоматическое размещение в ряд */
+    grid-auto-flow: row;
+    /* Отступы между ячейками */
+    gap: 20px;
+}
+
+.item3 {
+    grid-column: span 2;
+}

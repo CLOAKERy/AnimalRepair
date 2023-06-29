@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Animal_Repair;
 
 public partial class AnimalRepairContext : DbContext
 {
-    public AnimalRepairContext()
+    public AnimalRepairContext(string connectionString)
     {
-
+        ConnectionString = connectionString;
     }
 
     public AnimalRepairContext(DbContextOptions<AnimalRepairContext> options)
         : base(options)
     {
     }
+
+    public string ConnectionString { get; }
 
     public virtual DbSet<Admin> Admins { get; set; }
 
@@ -37,10 +40,8 @@ public partial class AnimalRepairContext : DbContext
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=sql5106.site4now.net;User ID=db_a9ae8d_dbanimalre_admin;Password=a12345678;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;");
+        => optionsBuilder.UseSqlServer(ConnectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

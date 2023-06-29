@@ -84,19 +84,6 @@ namespace AnimalRepair.BLL.Services
 
         public async Task UpdateProduct(ProductDTO productDto)
         {
-            // Поиск животного по идентификатору
-            Product product = await _unitOfWork.Products.GetAsync(productDto.Id);
-            if (product == null)
-                throw new ValidationException("Животное не найдено", "");
-
-            // Обновление данных животного
-            product.IdKindOfProduct = productDto.IdKindOfProduct;
-            product.Price = productDto.Price;
-            product.Name = productDto.Name;
-            product.Description = productDto.Description;
-            product.Picture = productDto.Picture;
-            // Обновление других свойств животного
-
             // Маппинг productDTO в product
             Product updatedproduct = _mapper.Map<ProductDTO, Product>(productDto);
 
