@@ -1,6 +1,7 @@
 ﻿using Amazon.Runtime.Internal;
 using Newtonsoft.Json;
 using System.Net;
+using System.Text.Json;
 
 namespace Animal_Repair.Middleware
 {
@@ -13,36 +14,80 @@ namespace Animal_Repair.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {
-                // Пропустить запрос дальше в конвейер
                 await _next(context);
             }
             catch (Exception ex)
             {
-                // Обработка исключений и формирование ответа
                 await HandleExceptionAsync(context, ex);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            // Логика обработки исключений, формирование сообщения об ошибке и т.д.
+            HttpStatusCode statusCode;
+            string message;
 
-            // Например, можно установить код состояния и вернуть сообщение в формате JSON
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            // Определение статусного кода и сообщения об ошибке на основе исключения
+            // Можно настроить обработку различных типов исключений
+
+            if (exception is NotFoundException)
+            {
+                statusCode = HttpStatusCode.NotFound;
+                message = "Ресурс не найден.";
+            }
+            else if (exception is UnauthorizedAccessException)
+            {
+                statusCode = HttpStatusCode.Unauthorized;
+                message = "Недостаточно прав для доступа к ресурсу.";
+            }
+            else
+            {
+                statusCode = HttpStatusCode.InternalServerError;
+                message = "Произошла внутренняя ошибка сервера.";
+            }
+
+            // Запись ошибки в логи или другие операции обработки
+
             context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)statusCode;
 
             var errorResponse = new ErrorResponse
             {
-                Message = "Произошла ошибка",
-                // Дополнительные поля, такие как код ошибки, трассировка стека и т.д.
+                StatusCode = (int)statusCode,
+                Message = message,
+                // Дополнительные поля, если необходимо
             };
 
-            var json = JsonConvert.SerializeObject(errorResponse);
-            await context.Response.WriteAsync(json);
+            var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var json = System.Text.Json.JsonSerializer.Serialize(errorResponse, jsonOptions);
+
+            return context.Response.WriteAsync(json);
+        }
+    }
+
+    public static class ErrorHandlingMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseErrorHandlingMiddleware(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<ErrorHandlingMiddleware>();
+        }
+    }
+
+    public class ErrorResponse
+    {
+        public int StatusCode { get; set; }
+        public string Message { get; set; }
+    }
+
+    // Пример пользовательского исключения
+    public class NotFoundException : Exception
+    {
+        public NotFoundException(string message) : base(message)
+        {
         }
     }
 }

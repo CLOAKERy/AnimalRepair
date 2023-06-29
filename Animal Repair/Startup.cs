@@ -75,7 +75,7 @@ public class Startup
     {
         // Конфигурация HTTP-конвейера
 
-        app.UseMiddleware<ErrorHandlingMiddleware>();
+        app.UseErrorHandlingMiddleware();
         app.UseRouting();
         app.UseStaticFiles();
         app.UseDeveloperExceptionPage();
