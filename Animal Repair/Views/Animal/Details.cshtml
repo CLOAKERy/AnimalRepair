@@ -29,5 +29,7 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-area="" asp-controller="Cart" asp-action="AddAnimalToCart"
+       asp-route-animalId="@Url.Content(Model.Id.ToString())">В корзину</a> |
     <a asp-action="Index">Back to List</a>
 </div>
