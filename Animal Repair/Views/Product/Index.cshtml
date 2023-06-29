@@ -1,0 +1,76 @@
+﻿@using AnimalRepair.BLL.DTO;
+@model Animal_Repair.Models.ProductIndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    var names = Model.Products;
+}
+<p>Фильтрация</p>
+<ul class="filtrBox">
+    @foreach (KindOfProductDTO kind in Model.KindOfProducts)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index"
+               asp-route-kindOfProductId="@Url.Content(kind.Id.ToString())">@Url.Content(kind.Name)</a>
+        </li>
+    }
+
+</ul>
+<p>
+    <a a class="nav-link text-dark" asp-action="Create" asp-controller="Product">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Название</p>
+            </th>
+            <th>
+                <p>Описание</p>
+            </th>
+            <th>
+                <p>Фото</p>
+            </th>
+            <th>
+                <p>Цена</p>
+            </th>
+            <th>
+                <p>Тип</p>
+            </th>
+            @*            <th>
+            @Html.DisplayNameFor(model => model.IdOrderNavigation)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Picture)" height="40" width="100" alt="Картинка не найдена" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KindOfProductName)
+                </td>
+                @*            <td>
+            @Html.DisplayFor(modelItem => item.IdOrderNavigation.Date)
+            </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

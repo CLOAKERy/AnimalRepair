@@ -52,6 +52,9 @@ public class Startup
         kindOfGenderModule.ConfigureServices(services);
         var kindOfAnimalModule = new KindOfAnimalModule();
         kindOfAnimalModule.ConfigureServices(services);
+        var kindOfProductModule = new KindOfProductModule();
+        kindOfProductModule.ConfigureServices(services);
+
 
         services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
