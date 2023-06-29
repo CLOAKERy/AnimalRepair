@@ -78,10 +78,13 @@ namespace AnimalRepair.BLL.Services
         {
             // Маппинг OrderDTO в Order
             Order order = _mapper.Map<Order>(orderDTO);
+            await _unitOfWork.Orders.CreateAsync(order);
 
-            foreach(var animalDTO in animalDTOs)
+            Order orderForAnimal = await _unitOfWork.Orders.GetLastOrder();
+
+            foreach (var animalDTO in animalDTOs)
             {
-                animalDTO.IdOrder = order.Id;
+                animalDTO.IdOrder = orderForAnimal.Id;
                 Animal animal = _mapper.Map<Animal>(animalDTO);
                 await _unitOfWork.Animals.UpdateAsync(animal);
             }
@@ -90,7 +93,7 @@ namespace AnimalRepair.BLL.Services
             var products = _mapper.Map<List<Product>>(productDTOs);
 
             // Вызов метода сохранения в базе данных
-            await _unitOfWork.OrderProducts.SaveOrderWithProducts(order, products);
+            await _unitOfWork.OrderProducts.SaveOrderWithProducts(orderForAnimal, products);
         }
     }
 }

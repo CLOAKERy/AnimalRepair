@@ -16,6 +16,12 @@ namespace OrderRepair.DAL.Repositories
         public OrderRepository(DbContext dbContext) : base(dbContext)
         {
         }
+        public async Task<Order> GetLastOrder()
+        {
+            return await _dbContext.Set<Order>()
+                .OrderByDescending(o => o.Id)
+                .FirstOrDefaultAsync();
+        }
 
         public async Task<IEnumerable<Order>> GetOrdersByCustomerId(int customerId)
         {
