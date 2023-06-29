@@ -76,5 +76,13 @@ public async Task<ActionResult> Details(KindOfProductCreateViewModel model)
     };
     return View(kindOfProductDetails);
 }
+    [HttpGet]
+    public async Task<ActionResult> Index()
+    {
+        KindOfProductIndexModel model = new();
+        model.KindOfProducts = await kindOfProductService.GetAllKindOfProductsAsync();
+        return View(model);
+    }
+
 }
 

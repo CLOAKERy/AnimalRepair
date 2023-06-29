@@ -34,7 +34,15 @@ namespace Animal_Repair.Controllers
         await kindOfGenderService.AddKindOfGender(kindOfGenderCreate);
         return RedirectToAction("Index", "KindOfGender");
     }
-    [HttpGet]
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+            KindOfGenderIndexModel model = new();
+            model.KindOfGenders = await kindOfGenderService.GetAllKindOfGendersAsync();
+            return View(model);
+        }
+        [HttpPost]
+        [HttpGet]
     public async Task<ActionResult> Edit(int id)
     {
         KindOfGenderDTO kindOfGender = await kindOfGenderService.GetKindOfGenderById(id);

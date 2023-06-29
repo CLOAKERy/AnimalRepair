@@ -3,14 +3,14 @@
 
 @{
     ViewData["Title"] = "Index";
-    var names = Model.kindOfProducts;
+    var names = Model.KindOfProducts;
 }
 <p>
     <a a class="nav-link text-dark" asp-action="Create" asp-controller="KindOfProduct">Create New</a>
 </p>
 
 <div class="cards">
-    @foreach (var item in Model.kindOfProducts)
+    @foreach (var item in Model.KindOfProducts)
     {
         <div class="cardItem">
             <p>
