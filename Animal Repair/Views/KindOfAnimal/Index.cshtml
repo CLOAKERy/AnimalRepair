@@ -1,0 +1,25 @@
+﻿@using AnimalRepair.BLL.DTO;
+@model Animal_Repair.Models.KindOfAnimalIndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    var names = Model.KindOfAnimals;
+}
+<p>
+    <a a class="nav-link text-dark" asp-action="Create" asp-controller="KindOfAnimal">Create New</a>
+</p>
+
+<div class="cards">
+    @foreach (var item in Model.KindOfAnimals)
+    {
+        <div class="cardItem">
+            <p>
+                @Html.DisplayFor(modelItem => item.Name)
+            </p>
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <a asp-action="Details" asp-route-id="@item.Id" asp-route-GenderName="@item.Name ">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" >Delete</a>
+        </div>
+    }
+</div>
+

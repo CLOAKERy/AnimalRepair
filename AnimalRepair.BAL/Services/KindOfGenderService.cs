@@ -23,7 +23,7 @@ namespace AnimalRepair.BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public void AddKindOfGender(KindOfGenderDTO kindOfGenderDto)
+        public async Task AddKindOfGender(KindOfGenderDTO kindOfGenderDto)
         {
             // Валидация данных категории
             if (string.IsNullOrEmpty(kindOfGenderDto.Gender.ToString()))
@@ -40,6 +40,27 @@ namespace AnimalRepair.BLL.Services
 
             await _unitOfWork.KindOfGenders.UpdateAsync(updatedGender);
             _unitOfWork.Save();
+        }
+
+        public async Task RemoveKindOfGender(int kindOfGenderId)
+        {
+            KindOfGender kindOfGender = await _unitOfWork.KindOfGenders.GetAsync(kindOfGenderId);
+            if (kindOfGender == null)
+                throw new ValidationException("Пол не найден", "");
+
+            await _unitOfWork.KindOfAnimals.DeleteAsync(kindOfGenderId);
+            _unitOfWork.Save();
+        }
+
+        public async Task<KindOfGenderDTO> GetKindOfGenderById(int kindOfGenderId)
+        {
+            KindOfGender kindOfGender = await _unitOfWork.KindOfGenders.GetAsync(kindOfGenderId);
+            if (kindOfGender == null)
+                throw new ValidationException("Пол не найден", "");
+
+            KindOfGenderDTO kindOfGenderDto = _mapper.Map<KindOfGender, KindOfGenderDTO>(kindOfGender);
+
+            return kindOfGenderDto;
         }
 
         public async Task<IEnumerable<KindOfGenderDTO>> GetAllKindOfGendersAsync()

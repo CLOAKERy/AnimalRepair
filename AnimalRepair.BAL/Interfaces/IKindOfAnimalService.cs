@@ -10,7 +10,7 @@ namespace AnimalRepair.BLL.Interfaces
 {
     public interface IKindOfAnimalService
     {
-        void AddKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto);
+        Task AddKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto);
         Task UpdateKindOfAnimal(KindOfAnimalDTO kindOfAnimalDto);
         Task RemoveKindOfAnimal(int kindOfAnimalId);
         Task<KindOfAnimalDTO> GetKindOfAnimalById(int kindOfAnimalId);
