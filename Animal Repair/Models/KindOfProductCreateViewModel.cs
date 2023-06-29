@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace Animal_Repair.Models
 {
-    public class KindOfProductCreateViewModel : Controller
+    public class KindOfProductCreateViewModel 
     {
         public int Id { get; set; }
 
