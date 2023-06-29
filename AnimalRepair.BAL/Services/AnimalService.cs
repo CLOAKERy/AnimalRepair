@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -68,14 +69,14 @@ namespace AnimalRepair.BLL.Services
 
         public async Task<AnimalDTO> GetAnimalById(int animalId)
         {
-            // Поиск животного по идентификатору
-            Animal animal = await _unitOfWork.Animals.GetAsync(animalId);
-            if (animal == null)
-                throw new ValidationException("Животное не найдено", "");
+            Animal animal = await _unitOfWork.Animals.GetAsync(
+                animalId,
+                a => a.IdGenderNavigation,
+                a => a.IdKindOfAnimalNavigation
+            );
 
-            AnimalDTO animalDto = _mapper.Map<Animal, AnimalDTO>(animal);
-
-            return animalDto;
+            AnimalDTO animalMapped = _mapper.Map<Animal, AnimalDTO>(animal);
+            return animalMapped;
         }
 
         public async Task<IEnumerable<AnimalDTO>> GetAnimalsByCategory(int IdCategory)

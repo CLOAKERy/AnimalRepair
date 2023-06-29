@@ -5,9 +5,9 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Animal Repair", "Animal Repair.csproj", "{355F4577-5C17-4885-99A5-093CC26A8015}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRepair.DAL", "..\AnimalRepair.DAL\AnimalRepair.DAL.csproj", "{D49047F2-C971-4F52-AD13-F3F4C6F12B79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRepair.DAL", "..\AnimalRepair.DAL\AnimalRepair.DAL.csproj", "{D49047F2-C971-4F52-AD13-F3F4C6F12B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRepair.BLL", "..\AnimalRepair.BAL\AnimalRepair.BLL.csproj", "{578CAD44-A537-4303-948D-E6445BF3AF54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRepair.BLL", "..\AnimalRepair.BAL\AnimalRepair.BLL.csproj", "{578CAD44-A537-4303-948D-E6445BF3AF54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,57 @@
+﻿@model CartViewModel
+
+<h1>Cart</h1>
+
+@if (Model.Items.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Picture</th>
+                <th>Type</th>
+                <th>Пол/Стоимость</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                @if (item.IsProduct == false)
+                {
+                    <tr>
+                        <td><img src="@Url.Content(item.AnimalPicture)" height="70" width="120"/></td>
+                        <td>@item.KindOfAnimal</td>
+                        <td>@item.KindOfGendr</td>
+                        <td>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="RemoveAnimalFromCart"
+                               asp-route-animalId="@Url.Content(item.AnimalId.ToString())">Удалить</a>
+                        </td>
+                    </tr>
+                }
+                @if (item.IsProduct == true)
+                {
+                    <tr>
+                        <td><img src="@Url.Content(item.ProductPicture)" height="70" width="120" /></td>
+                        <td>@item.ProductName</td>
+                        <td>@item.ProductPrice</td>
+                        <td>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="RemoveProductFromCart"
+                               asp-route-productId="@Url.Content(item.ProductId.ToString())">Удалить</a>
+                        </td>
+                    </tr>
+                }
+                
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total:</strong></td>
+                <td colspan="2">@Model.TotalPrice</td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <p>Your cart is empty.</p>
+}
