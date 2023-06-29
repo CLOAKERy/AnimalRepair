@@ -22,35 +22,36 @@ namespace Animal_Repair.Controllers
             
         }
 
-        /* public IActionResult AddProductToCart(int productId)
-         {
-             // Получите текущую корзину из сеанса
-             var cart = HttpContext.Session.GetObject<List<CartItem>>("Cart") ?? new List<CartItem>();
+        public async Task<IActionResult> AddProductToCart(int productId)
+        {
+            // Получите текущую корзину из сеанса
+            var cart = HttpContext.Session.GetObject<List<CartItem>>("Cart") ?? new List<CartItem>();
 
-             // Получите товар из базы данных или другого источника данных
-             var product = productService.GetProductById(productId);
+            // Получите товар из базы данных или другого источника данных
+            var product =  await productService.GetProductById(productId);
 
-             if (product != null)
-             {
-                 // Создайте объект CartItem на основе товара
-                 var cartItem = new CartItem
-                 {
-                     ProductId = product.Id,
-                     ProductName = product.Name,
-                     ProductPrice = product.Price,
-                     IsProduct = true
-                     // Установите дополнительные свойства товара
-                 };
+            if (product != null)
+            {
+                // Создайте объект CartItem на основе товара
+                var cartItem = new CartItem
+                {
+                    ProductId = product.Id,
+                    ProductName = product.Name,
+                    ProductPrice = Convert.ToDecimal(product.Price),
+                    ProductPicture = product.Picture,
+                    IsProduct = true
+                    // Установите дополнительные свойства товара
+                };
 
-                 // Добавьте товар в корзину
-                 cart.Add(cartItem);
+                // Добавьте товар в корзину
+                cart.Add(cartItem);
 
-                 // Сохраните обновленную корзину в сеансе
-                 HttpContext.Session.SetObject("Cart", cart);
-             }
+                // Сохраните обновленную корзину в сеансе
+                HttpContext.Session.SetObject("Cart", cart);
+            }
 
-             return RedirectToAction("Cart");
-         }*/
+            return RedirectToAction("Index");
+        }
 
         public async Task<IActionResult> AddAnimalToCart(int animalId)
         {
