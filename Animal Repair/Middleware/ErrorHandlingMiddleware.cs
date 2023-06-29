@@ -1,6 +1,4 @@
-﻿using Amazon.Runtime.Internal;
-using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
 
 namespace Animal_Repair.Middleware
