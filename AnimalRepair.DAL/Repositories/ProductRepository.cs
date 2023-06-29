@@ -28,6 +28,19 @@ namespace AnimalRepair.DAL.Repositories
 
             return await query.ToListAsync();
         }
+        public async Task<IEnumerable<Product>> GetAllByIdAsync(int id, params Expression<Func<Product, object>>[] includes)
+        {
+            IQueryable<Product> query = _dbContext.Set<Product>()
+                .Where(a => a.Id == id);
+
+            // Включение связанных данных с помощью метода Include
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.ToListAsync();
+        }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int idKindOfProduct)
         {

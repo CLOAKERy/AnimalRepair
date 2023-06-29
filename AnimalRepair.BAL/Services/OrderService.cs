@@ -90,5 +90,26 @@ namespace AnimalRepair.BLL.Services
             await _unitOfWork.Orders.UpdateAsync(updatedOrder);
             _unitOfWork.Save();
         }
+
+        public async Task<IEnumerable<OrderDTO>> GetAllOrders()
+        {
+            IEnumerable<Order> orders = await _unitOfWork.Orders.GetAllAsync();
+
+            var orderDTOs = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
+
+            foreach(var orderDTO in orderDTOs)
+            {
+                IEnumerable<OrderProduct> orderProducts = await _unitOfWork.OrderProducts.GetOrderProductByIdOrder(orderDTO.Id);
+                foreach (var orderProduct in orderProducts)
+                {
+                    IEnumerable<Product> products = await _unitOfWork.Products.GetAllByIdAsync(
+                        orderProduct.IdProduct,
+                        a => a.IdKindOfProductNavigation);
+
+                    orderDTO.Products = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+                }
+            }
+            return orderDTOs;
+        }
     }
 }

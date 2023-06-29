@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Animal_Repair;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,7 @@ namespace AnimalRepair.BLL.DTO
 
         public double Price { get; set; }
         public string Status { get; set; } = null!;
+        public virtual ICollection<AnimalDTO> Animals { get; set; } = new List<AnimalDTO>();
+        public IEnumerable<ProductDTO> Products { get; set; }
     }
 }
