@@ -25,10 +25,24 @@ namespace Animal_Repair.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int kindOfProductId)
         {
-            IEnumerable<ProductDTO> ProductDtos = await productService.GetAllProductsAsync();
-            return View(ProductDtos);
+            ProductIndexModel model = new()
+            {
+                KindOfProducts = await kindOfProductService.GetAllKindOfProductsAsync(),
+            };
+
+            if (kindOfProductId == 0)
+            {
+
+                model.Products = await productService.GetAllProductsAsync();
+                return View(model);
+            }
+            else
+            {
+                model.Products = await productService.GetProductsByCategoryAsync(kindOfProductId);
+                return View(model);
+            }
         }
 
         [HttpGet]
