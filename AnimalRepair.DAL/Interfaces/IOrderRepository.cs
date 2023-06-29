@@ -13,5 +13,6 @@ namespace AnimalRepair.DAL.Interfaces
         Task<IEnumerable<Order>> GetOrdersByCustomerId(int customerId);
 
         Task<IEnumerable<Order>> GetOrdersByStatus(string status);
+        Task<Order> GetLastOrder();
     }
 }

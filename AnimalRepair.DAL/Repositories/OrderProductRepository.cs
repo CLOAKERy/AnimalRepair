@@ -33,10 +33,6 @@ namespace OrderProductRepair.DAL.Repositories
 
         public async Task SaveOrderWithProducts(Order order, List<Product> products)
         {
-            // Создаем новую запись заказа в базе данных
-            await _dbContext.Set<Order>().AddAsync(order);
-            await _dbContext.SaveChangesAsync();
-
             // Сохраняем связанные записи продуктов
             foreach (var product in products)
             {
