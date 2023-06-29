@@ -74,11 +74,12 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         // Конфигурация HTTP-конвейера
-
+        
         app.UseErrorHandlingMiddleware();
+        app.UseExceptionHandler("/Home/Error");
         app.UseRouting();
         app.UseStaticFiles();
-        app.UseDeveloperExceptionPage();
+        //app.UseDeveloperExceptionPage();
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>

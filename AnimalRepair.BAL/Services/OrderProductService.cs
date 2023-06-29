@@ -47,7 +47,7 @@ namespace AnimalRepair.BLL.Services
         public async Task<IEnumerable<OrderProductDTO>> GetOrderProductByIdProduct(int productId)
         {
             // Получение списка промежуточной таблицы по идентификатору продукта
-            IEnumerable<OrderProduct> Orders = await _unitOfWork.OrderProducts.GetOrderProductByIdOrder(productId);
+            IEnumerable<OrderProduct> Orders = await _unitOfWork.OrderProducts.GetOrderProductByIdProduct(productId);
             return _mapper.Map<IEnumerable<OrderProduct>, IEnumerable<OrderProductDTO>>(Orders);
         }
 
@@ -81,6 +81,25 @@ namespace AnimalRepair.BLL.Services
 
             await _unitOfWork.OrderProducts.UpdateAsync(updatedOrderProduct);
             _unitOfWork.Save();
+        }
+
+        public async Task SaveOrderWithProducts(OrderDTO orderDTO, List<ProductDTO> productDTOs, List<AnimalDTO> animalDTOs)
+        {
+            // Маппинг OrderDTO в Order
+            Order order = _mapper.Map<Order>(orderDTO);
+
+            foreach(var animalDTO in animalDTOs)
+            {
+                animalDTO.IdOrder = order.Id;
+                Animal animal = _mapper.Map<Animal>(animalDTO);
+                await _unitOfWork.Animals.UpdateAsync(animal);
+            }
+
+            // Маппинг списка ProductDTO в список Product
+            var products = _mapper.Map<List<Product>>(productDTOs);
+
+            // Вызов метода сохранения в базе данных
+            await _unitOfWork.OrderProducts.SaveOrderWithProducts(order, products);
         }
     }
 }

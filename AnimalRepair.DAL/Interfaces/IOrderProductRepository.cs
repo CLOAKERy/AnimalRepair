@@ -11,5 +11,6 @@ namespace AnimalRepair.DAL.Interfaces
     {
         Task<IEnumerable<OrderProduct>> GetOrderProductByIdOrder(int orderId);
         Task<IEnumerable<OrderProduct>> GetOrderProductByIdProduct(int productId);
+        Task SaveOrderWithProducts(Order order, List<Product> products);
     }
 }

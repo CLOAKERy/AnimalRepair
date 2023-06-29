@@ -30,5 +30,27 @@ namespace OrderProductRepair.DAL.Repositories
                 .Where(a => a.IdProduct == productId)
                 .ToListAsync();
         }
+
+        public async Task SaveOrderWithProducts(Order order, List<Product> products)
+        {
+            // Создаем новую запись заказа в базе данных
+            await _dbContext.Set<Order>().AddAsync(order);
+            await _dbContext.SaveChangesAsync();
+
+            // Сохраняем связанные записи продуктов
+            foreach (var product in products)
+            {
+                var orderProduct = new OrderProduct
+                {
+                    IdOrder = order.Id, // Предполагается, что у заказа есть поле Id
+                    IdProduct = product.Id // Предполагается, что у продукта есть поле Id
+                };
+
+                await _dbContext.Set<OrderProduct>().AddAsync(orderProduct);
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using AnimalRepair.BLL.DTO;
 using AnimalRepair.BLL.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,6 +17,11 @@ namespace Animal_Repair.Controllers
         {
             animalService = serv;
             _logger = logger;
+        }
+        public IActionResult Error()
+        {
+            var errorFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            return View("Error", errorFeature);
         }
 
         public async Task<ActionResult> IndexAsync()

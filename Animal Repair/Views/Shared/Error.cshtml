@@ -1,4 +1,15 @@
-﻿@model ErrorViewModel
+﻿@model Microsoft.AspNetCore.Diagnostics.ExceptionHandlerFeature
+
+<h1>Error</h1>
+<p>An error occurred while processing your request.</p>
+
+@if (Model != null)
+{
+    <p>Error Message: @Model.Error.Message</p>
+    <p>Error Trace: @Model.Error.StackTrace</p>
+}
+
+@*@model ErrorViewModel
 @{
     ViewData["Title"] = "Error";
 }
@@ -23,3 +34,4 @@
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
 </p>
+*@
