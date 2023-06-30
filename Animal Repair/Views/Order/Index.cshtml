@@ -14,6 +14,8 @@
             </tr>
         </thead>
         <tbody>
+            @if(order.Animals != null)
+            {      
                 @foreach(var animal in order.Animals)
                 {
                     <tr>
@@ -22,6 +24,9 @@
                         <td>@animal.GenderName</td>
                     </tr>
                 }
+            }
+            @if (order.Products != null)
+            {
                 @foreach(var product in order.Products)
                 {
                     <tr>
@@ -30,12 +35,18 @@
                         <td>@product.Price</td>
                     </tr>
                 }
+            }
+            
 
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="2"><strong>Total:</strong></td>
                 <td colspan="2">@order.Price</td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>Status:</strong></td>
+                <td colspan="2">@order.Status</td>
             </tr>
         </tfoot>
     </table>
