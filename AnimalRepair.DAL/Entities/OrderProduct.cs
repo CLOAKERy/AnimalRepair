@@ -5,6 +5,7 @@ namespace Animal_Repair;
 
 public partial class OrderProduct
 {
+    public int Id { get; set; }
     public int IdOrder { get; set; }
 
     public int IdProduct { get; set; }

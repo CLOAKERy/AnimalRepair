@@ -164,7 +164,7 @@ namespace AnimalRepair.DAL.Configurations
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Date)
-                .HasMaxLength(15)
+                .HasMaxLength(20)
                 .IsFixedLength();
             entity.Property(e => e.IdCustomer).HasColumnName("idCustomer");
             entity.Property(e => e.Status)
@@ -182,9 +182,9 @@ namespace AnimalRepair.DAL.Configurations
         public void Configure(EntityTypeBuilder<OrderProduct> entity)
         {
             entity
-                    .HasNoKey()
+                    
                     .ToTable("Order_Product");
-
+            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.IdOrder).HasColumnName("id_Order");
             entity.Property(e => e.IdProduct).HasColumnName("id_Product");
 

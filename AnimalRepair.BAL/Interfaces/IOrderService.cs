@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRepair.BLL.Interfaces
 {
-    internal interface IOrderService : IDisposable
+    public interface IOrderService : IDisposable
     {
         Task CreateOrder(OrderDTO orderDto);
         Task RemoveOrder(int orderId);

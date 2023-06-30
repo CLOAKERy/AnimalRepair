@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AnimalRepair.BLL.DTO.OrderDTO>
+
+<h1>Order</h1>
+@foreach(var order in Model)
+{
+    <p>id:@order.Id | date: @order.Date </p>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Picture</th>
+                <th>Type</th>
+                <th>Пол/Стоимость</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(order.Animals != null)
+            {      
+                @foreach(var animal in order.Animals)
+                {
+                    <tr>
+                        <td><img src="@Url.Content(animal.Picture)" height="70" width="120" /></td>
+                        <td>@animal.KindOfAnimalName</td>
+                        <td>@animal.GenderName</td>
+                    </tr>
+                }
+            }
+            @if (order.Products != null)
+            {
+                @foreach(var product in order.Products)
+                {
+                    <tr>
+                        <td><img src="@Url.Content(product.Picture)" height="70" width="120" /></td>
+                        <td>@product.Name</td>
+                        <td>@product.Price</td>
+                    </tr>
+                }
+            }
+            
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total:</strong></td>
+                <td colspan="2">@order.Price</td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>Status:</strong></td>
+                <td colspan="2">@order.Status</td>
+            </tr>
+        </tfoot>
+    </table>
+}

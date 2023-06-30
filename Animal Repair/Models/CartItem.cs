@@ -9,7 +9,7 @@
         public int ProductCount { get; set; }
         public decimal ProductPrice { get; set; }
 
-        public int? AnimalId { get; set; }
+        public int AnimalId { get; set; }
         public string KindOfAnimal { get; set; }
         public string KindOfGendr { get; set; }
         public string AnimalPicture { get; set; }

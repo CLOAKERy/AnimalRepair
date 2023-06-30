@@ -17,7 +17,7 @@ namespace AnimalRepair.BLL.DTO
 
         public double Price { get; set; }
         public string Status { get; set; } = null!;
-        public virtual ICollection<AnimalDTO> Animals { get; set; } = new List<AnimalDTO>();
+        public IEnumerable<AnimalDTO> Animals { get; set; }
         public IEnumerable<ProductDTO> Products { get; set; }
     }
 }
