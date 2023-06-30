@@ -8,6 +8,7 @@ namespace AnimalRepair.BLL.DTO
 {
     public class OrderProductDTO
     {
+        public int Id { get; set; }
         public int IdOrder { get; set; }
 
         public int IdProduct { get; set; }
