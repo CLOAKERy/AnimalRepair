@@ -58,7 +58,7 @@ namespace Animal_Repair.Controllers
             // Добавьте заказ в базу данных или выполните другие необходимые действия
             await orderProductService.SaveOrderWithProducts(order, productDTOs, animalDTOs);
             // Очистите корзину
-            globalCart.Clear();
+            HttpContext.Session.Remove("Cart");
 
             // Перенаправьте пользователя на страницу подтверждения заказа или другую страницу
             return RedirectToAction("Confirmation");
@@ -68,5 +68,12 @@ namespace Animal_Repair.Controllers
             IEnumerable <OrderDTO> order = await orderService.GetAllOrders();
             return View(order);
         }
+
+        public IActionResult Confirmation()
+        {
+            return View();
+        }
+
+
     }
 }

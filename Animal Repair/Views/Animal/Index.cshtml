@@ -57,9 +57,14 @@
             <p>
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
             </p>
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
             <a asp-action="Details" asp-route-id="@item.Id" asp-route-GenderName="@item.GenderName" asp-route-KindOfAnimalName="@item.KindOfAnimalName">Details</a>
-            <a asp-action="Delete" asp-route-id="@item.Id" asp-route-picture="@item.Picture">Delete</a>
+            @if (User.IsInRole("2"))
+            {
+               <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+               <a asp-action="Delete" asp-route-id="@item.Id" asp-route-picture="@item.Picture">Delete</a> 
+            }
+            
+
         </div>
         }
     </div>
