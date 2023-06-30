@@ -6,6 +6,31 @@
     var names = Model.KindOfProducts;
 }
 <p>
+    <a class="nav-link text-dark" asp-action="Create" asp-controller="KindOfAnimal">Create New</a>
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th class="actions">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.KindOfProducts)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td class="actions">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*<p>
     <a a class="nav-link text-dark" asp-action="Create" asp-controller="KindOfProduct">Create New</a>
 </p>
 
@@ -22,4 +47,4 @@
         </div>
     }
 </div>
-
+*@

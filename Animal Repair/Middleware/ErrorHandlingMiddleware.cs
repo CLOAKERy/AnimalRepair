@@ -1,5 +1,11 @@
-﻿using System.Net;
+﻿using Animal_Repair.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Animal_Repair.Middleware
 {
@@ -20,52 +26,24 @@ namespace Animal_Repair.Middleware
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                // Здесь можно выполнить дополнительные действия по обработке исключения, если требуется
+
+                // Установите нужный статус код для ошибки
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                // Создайте модель данных с информацией об ошибке
+                var errorModel = new ErrorViewModel
+                {
+                    ErrorCode = context.Response.StatusCode,
+                    ErrorMessage = ex.Message
+                };
+
+                // Отобразите окно с информацией об ошибке
+                await context.Response.WriteAsync($"<h1>Error {context.Response.StatusCode}</h1><p>{ex.Message}</p>");
             }
-        }
-
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            HttpStatusCode statusCode;
-            string message;
-
-            // Определение статусного кода и сообщения об ошибке на основе исключения
-            // Можно настроить обработку различных типов исключений
-
-            if (exception is NotFoundException)
-            {
-                statusCode = HttpStatusCode.NotFound;
-                message = "Ресурс не найден.";
-            }
-            else if (exception is UnauthorizedAccessException)
-            {
-                statusCode = HttpStatusCode.Unauthorized;
-                message = "Недостаточно прав для доступа к ресурсу.";
-            }
-            else
-            {
-                statusCode = HttpStatusCode.InternalServerError;
-                message = "Произошла внутренняя ошибка сервера.";
-            }
-
-            // Запись ошибки в логи или другие операции обработки
-
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)statusCode;
-
-            var errorResponse = new ErrorResponse
-            {
-                StatusCode = (int)statusCode,
-                Message = message,
-                // Дополнительные поля, если необходимо
-            };
-
-            var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-            var json = System.Text.Json.JsonSerializer.Serialize(errorResponse, jsonOptions);
-
-            return context.Response.WriteAsync(json);
         }
     }
+
 
     public static class ErrorHandlingMiddlewareExtensions
     {
@@ -73,12 +51,6 @@ namespace Animal_Repair.Middleware
         {
             return app.UseMiddleware<ErrorHandlingMiddleware>();
         }
-    }
-
-    public class ErrorResponse
-    {
-        public int StatusCode { get; set; }
-        public string Message { get; set; }
     }
 
     // Пример пользовательского исключения

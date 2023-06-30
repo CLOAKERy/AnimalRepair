@@ -21,7 +21,7 @@ namespace Animal_Repair.Controllers
         public IActionResult Error()
         {
             var errorFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            return View("Error", errorFeature);
+            return PartialView("_ErrorModal", errorFeature);
         }
 
         public async Task<ActionResult> IndexAsync()

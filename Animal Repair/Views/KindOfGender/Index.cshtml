@@ -6,6 +6,31 @@
     var names = Model.KindOfGenders;
 }
 <p>
+    <a class="nav-link text-dark" asp-action="Create" asp-controller="KindOfAnimal">Create New</a>
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th class="actions">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.KindOfGenders)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                <td class="actions">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*<p>
     <a a class="nav-link text-dark" asp-action="Create" asp-controller="KindOfGender">Create New</a>
 </p>
 
@@ -21,5 +46,5 @@
             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
         </div>
     }
-</div>
+</div>*@
 
