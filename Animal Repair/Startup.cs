@@ -71,6 +71,12 @@ public class Startup
         var kindOfProductModule = new KindOfProductModule();
         kindOfProductModule.ConfigureServices(services);
 
+        var orderProductModule = new OrderProductModule();
+        orderProductModule.ConfigureServices(services);
+
+        var orderModule = new OrderModule();
+        orderModule.ConfigureServices(services);
+
 
 
         services.AddScoped<IUnitOfWork, EFUnitOfWork>();
