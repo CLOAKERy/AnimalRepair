@@ -86,7 +86,7 @@ namespace AnimalRepair.BLL.Services
             {
                 
                 Animal animal = await _unitOfWork.Animals.GetAsync(animalDTO.Id);
-                animal.Id = orderForAnimal.Id;
+                animal.IdOrder = orderForAnimal.Id;
                 await _unitOfWork.Animals.UpdateAsync(animal);
             }
 
