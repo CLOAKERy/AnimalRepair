@@ -19,12 +19,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        
                         @if (User.Identity.IsAuthenticated == false)
                         {
                             <li class="nav-item">
@@ -40,12 +35,16 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index" asp-route-kindOfAnimalId ="0">Животные</a>
                             </li>
                             <li class="nav-item">
-
-
-
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index" asp-route-kindOfProductId="0">Товары</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Корзина</a>
+                            </li>
+
+
+                            @if (User.IsInRole("2"))
+                            {
+                                <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="KindOfAnimal" asp-action="Index" asp-route-Id="0">Категории животных </a>
                             </li>
                             <li class="nav-item">
@@ -54,9 +53,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="KindOfProduct" asp-action="Index" asp-route-Id="0">Категории товаров</a>
                             </li>
+                            
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index" >Корзина</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Заказы</a>
                             </li>
+                            }
+                            
+
                             <form method="post" asp-controller="Account" asp-action="Logout">
                                 <input type="submit" value="Выход" />
                             </form>

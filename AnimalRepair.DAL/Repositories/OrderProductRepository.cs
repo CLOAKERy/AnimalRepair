@@ -26,9 +26,9 @@ namespace OrderProductRepair.DAL.Repositories
 
         public async Task<IEnumerable<OrderProduct>> GetOrderProductByIdProduct(int productId)
         {
-            return await _dbContext.Set<OrderProduct>()
-                .Where(a => a.IdProduct == productId)
-                .ToListAsync();
+            IQueryable<OrderProduct> query = _dbContext.Set<OrderProduct>()
+                .Where(a => a.IdProduct == productId);
+            return query;
         }
 
         public async Task SaveOrderWithProducts(Order order, List<Product> products)
@@ -43,6 +43,7 @@ namespace OrderProductRepair.DAL.Repositories
                 };
 
                 await _dbContext.Set<OrderProduct>().AddAsync(orderProduct);
+                await _dbContext.SaveChangesAsync();
             }
 
             await _dbContext.SaveChangesAsync();

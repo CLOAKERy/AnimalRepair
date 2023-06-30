@@ -97,17 +97,25 @@ namespace AnimalRepair.BLL.Services
 
             var orderDTOs = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(orders);
 
+            List<Product> products = new List<Product>();
+
             foreach(var orderDTO in orderDTOs)
             {
                 IEnumerable<OrderProduct> orderProducts = await _unitOfWork.OrderProducts.GetOrderProductByIdOrder(orderDTO.Id);
                 foreach (var orderProduct in orderProducts)
                 {
-                    IEnumerable<Product> products = await _unitOfWork.Products.GetAllByIdAsync(
+                    /*IEnumerable<Product> products = await _unitOfWork.Products.GetAllByIdAsync(
                         orderProduct.IdProduct,
-                        a => a.IdKindOfProductNavigation);
+                        a => a.IdKindOfProductNavigation);*/
 
-                    orderDTO.Products = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+                    products.Add(await _unitOfWork.Products.GetAsync(orderProduct.IdProduct));
+
                 }
+                orderDTO.Products = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+                products.Clear();
+
+                IEnumerable<Animal> animal = await _unitOfWork.Animals.GetAnimaByIdOrderAsync(orderDTO.Id);
+                orderDTO.Animals = _mapper.Map<IEnumerable<Animal>, IEnumerable<AnimalDTO>>(animal);
             }
             return orderDTOs;
         }

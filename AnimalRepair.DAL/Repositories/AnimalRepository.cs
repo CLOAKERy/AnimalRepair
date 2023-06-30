@@ -53,5 +53,18 @@ namespace AnimalRepair.DAL.Repositories
 
             return await query.FirstOrDefaultAsync(a => a.Id == id);
         }
+        public async Task<IEnumerable<Animal>> GetAnimaByIdOrderAsync(int id, params Expression<Func<Animal, object>>[] includes)
+        {
+            IQueryable<Animal> query = _dbContext.Set<Animal>()
+                .Where(a => a.IdOrder == id);
+
+            // Включение связанных данных с помощью метода Include
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query;
+        }
     }
 }

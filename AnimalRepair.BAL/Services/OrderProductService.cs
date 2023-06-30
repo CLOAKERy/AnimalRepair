@@ -84,8 +84,9 @@ namespace AnimalRepair.BLL.Services
 
             foreach (var animalDTO in animalDTOs)
             {
-                animalDTO.IdOrder = orderForAnimal.Id;
-                Animal animal = _mapper.Map<Animal>(animalDTO);
+                
+                Animal animal = await _unitOfWork.Animals.GetAsync(animalDTO.Id);
+                animal.IdOrder = orderForAnimal.Id;
                 await _unitOfWork.Animals.UpdateAsync(animal);
             }
 
