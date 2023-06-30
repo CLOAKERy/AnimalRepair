@@ -60,10 +60,5 @@ namespace AnimalRepair.DAL.Repositories
             _dbContext.Set<T>().Update(item);
             await _dbContext.SaveChangesAsync();
         }
-
-        
-
-
-
     }
 }

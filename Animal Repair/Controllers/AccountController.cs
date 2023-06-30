@@ -75,7 +75,5 @@ namespace Animal_Repair.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
-
-        
     }
 }

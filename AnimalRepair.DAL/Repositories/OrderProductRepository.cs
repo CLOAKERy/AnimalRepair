@@ -38,8 +38,8 @@ namespace OrderProductRepair.DAL.Repositories
             {
                 var orderProduct = new OrderProduct
                 {
-                    IdOrder = order.Id, // Предполагается, что у заказа есть поле Id
-                    IdProduct = product.Id // Предполагается, что у продукта есть поле Id
+                    IdOrder = order.Id, 
+                    IdProduct = product.Id 
                 };
 
                 await _dbContext.Set<OrderProduct>().AddAsync(orderProduct);

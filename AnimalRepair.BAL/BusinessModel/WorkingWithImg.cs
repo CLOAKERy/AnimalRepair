@@ -20,9 +20,6 @@ namespace AnimalRepair.BLL.BusinessModel
                 // Генерируйте уникальное имя файла
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
 
-                // Получите путь к папке сохранения изображений на сервере
-
-
                 // Полный путь к сохраняемому файлу
                 string filePath = Path.Combine(uploadFolder, uniqueFileName);
 
