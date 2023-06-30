@@ -13,5 +13,6 @@ namespace AnimalRepair.DAL.Interfaces
         Task<Animal> GetAsync(int id, params Expression<Func<Animal, object>>[] includes);
         Task<IEnumerable<Animal>> GetByCategoryAsync(int idkindOfAnimal);
         Task<IEnumerable<Animal>> GetAnimalsByGenderAsync(int idGender);
+        Task<IEnumerable<Animal>> GetAnimaByIdOrderAsync(int id, params Expression<Func<Animal, object>>[] includes);
     }
 }
