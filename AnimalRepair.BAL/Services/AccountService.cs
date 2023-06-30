@@ -98,7 +98,7 @@ namespace AnimalRepair.BLL.Services
 
                 if (login.Password != HashPassword.GetHashPassword(loginDTO.Password))
                 {
-                    throw new ValidationException($"Неверный логин или пароль {HashPassword.GetHashPassword(login.Password)}", "");
+                    throw new ValidationException($"Неверный логин или пароль", "");
                 }
 
                 // Поиск логина и пароля по идентификатору
@@ -112,9 +112,9 @@ namespace AnimalRepair.BLL.Services
 
                 return result;
             }
-            catch 
+            catch (Exception ex)
             {
-                throw new ValidationException("Не работает", "");
+                throw new ValidationException(ex.Message, "");
             }
         }
 

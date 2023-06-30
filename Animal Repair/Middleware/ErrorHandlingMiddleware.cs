@@ -39,7 +39,7 @@ namespace Animal_Repair.Middleware
                 };
 
                 // Отобразите окно с информацией об ошибке
-                await context.Response.WriteAsync($"<h1>Error {context.Response.StatusCode}</h1><p>{ex.Message}</p>");
+                await context.Response.WriteAsync($"<html>\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <title>Error</title>\r\n</head>\r\n<body><h1>Error {context.Response.StatusCode}</h1><p>{ex.Message}</p></body>\r\n</html>");
             }
         }
     }
